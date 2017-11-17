@@ -1,3 +1,7 @@
+# COMING SOON! - Not available for download yet.
+
+
+
 <img src="data/Icons/SimpleR.png" width="100">
 
 # SimpleR-RotMG
