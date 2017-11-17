@@ -20,7 +20,9 @@ A convenient way to play Realm of the Mad God on Windows
 
 
 # Download
-tbd
+See [Releases](/releases) for download
+
+(Instructions: Download zip -> Rightlick -> Exctract All -> Launch SimpleR.exe)
 
 # Special thanks to
 - WildShadow studios for creating Realm of the Mad God
