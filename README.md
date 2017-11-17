@@ -19,6 +19,7 @@ A convenient way to play Realm of the Mad God on Windows
 - Launch an additional program like Discord when starting the game
 - Set up & Teleport to a temporary safe anchor
 - Annoyed by a bot? Ignore the person that most recently sent you a private message
+- Open source
 
 
 # Download
