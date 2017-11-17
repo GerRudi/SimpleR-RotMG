@@ -22,7 +22,7 @@ A convenient way to play Realm of the Mad God on Windows
 
 
 # Download
-See [Releases](https://github.com/GerRudi/SimpleR-RotMG/releases) for download
+See [Releases](../../releases) for download
 
 If you have trouble setting it up, please check out the [Wiki](../../wiki).
 
@@ -32,7 +32,7 @@ If you have trouble setting it up, please check out the [Wiki](../../wiki).
 - WildShadow studios for creating Realm of the Mad God
 - Kabam Inc. for keeping it alive
 - [DECA games](http://decagames.com) for reviving it
-- Elecmand for creating [Projector+](http://web.archive.org/web/20120326163330/http://forums.wildshadow.com/node/64729) and inspiring me to develop this
+- Elecmad for creating [Projector+](http://web.archive.org/web/20120326163330/http://forums.wildshadow.com/node/64729) and inspiring me to develop this
 - [BMJ](https://www.realmeye.com/player/bmj) for Creating Quickspeech and giving me ideas for this project
 - CptVince for helping me a lot with the former project of this back in 2014
 - andy12345 for creating the cursor [rotmg.cur](http://www.rw-designer.com/cursor-detail/27070) on rw-designer
