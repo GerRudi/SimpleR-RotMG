@@ -1,7 +1,9 @@
+<img src="data/Icons/SimpleR.png" width="100">
+
 # SimpleR-RotMG
 A convenient way to play Realm of the Mad God on Windows
 
-*Disclaimer: SimpleR is not affiliated with Deca Games in any way*
+
 
 # Features
 - Automatically play with the latest version using Adobe Flash Projector
@@ -23,6 +25,8 @@ A convenient way to play Realm of the Mad God on Windows
 See [Releases](https://github.com/GerRudi/SimpleR-RotMG/releases) for download
 
 (Instructions: Download zip -> Rightlick -> Exctract All -> Launch SimpleR.exe)
+
+*Disclaimer: SimpleR is not affiliated with Deca Games in any way*
 
 # Special thanks to
 - WildShadow studios for creating Realm of the Mad God
