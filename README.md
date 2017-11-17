@@ -20,7 +20,7 @@ A convenient way to play Realm of the Mad God on Windows
 
 
 # Download
-See [Releases](/releases) for download
+See [Releases](https://github.com/GerRudi/SimpleR-RotMG/releases) for download
 
 (Instructions: Download zip -> Rightlick -> Exctract All -> Launch SimpleR.exe)
 
