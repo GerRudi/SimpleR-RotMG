@@ -1,0 +1,5 @@
+*.csv
+*.exe
+!Settings.exe
+!SimpleR.exe
+*_stripped.au3
