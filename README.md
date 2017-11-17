@@ -22,20 +22,16 @@ A convenient way to play Realm of the Mad God on Windows
 # Download
 tbd
 
-# Credits
-Authors of User Defined Functions are mentioned in the source code
-
-
 # Special thanks to
 WildShadow studios for creating Realm of the Mad God
 Kabam Inc. for keeping it alive
-DECA games for reviving it
-Elecmand for creating Projector+ and inspiring me to develop this
-BMJ for Creating Quickspeech and giving me ideas for this project
+[DECA games](http://decagames.com) for reviving it
+Elecmand for creating [Projector+](http://web.archive.org/web/20120326163330/http://forums.wildshadow.com/node/64729) and inspiring me to develop this
+[BMJ](https://www.realmeye.com/player/bmj) for Creating Quickspeech and giving me ideas for this project
 CptVince for helping me a lot with the former project of this back in 2014
-andy12345 for creating the cursor rotmg.cur
-SuperDry for creatin the cursor rotmg2.cur (original post deleted)
-All the creators of the amazing UDFs like MetroGUI and _IsPressed
+andy12345 for creating the cursor [rotmg.cur](http://www.rw-designer.com/cursor-detail/27070) on rw-designer
+SuperDry for creating the cursor rotmg2.cur (original post deleted)
+All the creators of the amazing UDFs like [MetroGUI](https://www.autoitscript.com/forum/topic/161184-metrogui-udf-v51-windows-10-style-buttons-toggles-radios-menu-etc/) and [_IsPressed](https://www.autoitscript.com/forum/topic/86296-ispressed_udf-v23-advanced-keypress/)
 
 # License
 MIT - See License.md
