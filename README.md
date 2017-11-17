@@ -43,5 +43,5 @@ See [Releases](https://github.com/GerRudi/SimpleR-RotMG/releases) for download
 MIT - See License.md
 
 # Frequently Asked Questions
-Check out the Wiki
+Check out the [Wiki](../../wiki)
 
