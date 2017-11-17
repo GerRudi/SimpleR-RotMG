@@ -41,7 +41,7 @@ If you have trouble setting it up, please check out the [Wiki](../../wiki).
 - All the creators of the amazing UDFs like [MetroGUI](https://www.autoitscript.com/forum/topic/161184-metrogui-udf-v51-windows-10-style-buttons-toggles-radios-menu-etc/) and [_IsPressed](https://www.autoitscript.com/forum/topic/86296-ispressed_udf-v23-advanced-keypress/)
 
 # License
-MIT - See License.md
+MIT - Details see [LICENSE](/LICENSE)
 
 # Frequently Asked Questions
 Check out the [Wiki](../../wiki)
