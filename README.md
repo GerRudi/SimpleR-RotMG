@@ -24,7 +24,7 @@ A convenient way to play Realm of the Mad God on Windows
 # Download
 See [Releases](https://github.com/GerRudi/SimpleR-RotMG/releases) for download
 
-(Instructions: Download zip -> Rightlick -> Exctract All -> Launch SimpleR.exe)
+If you have trouble setting it up, please check out the [Wiki](../../wiki).
 
 *Disclaimer: SimpleR is not affiliated with Deca Games in any way*
 
