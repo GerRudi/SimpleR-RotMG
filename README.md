@@ -22,9 +22,20 @@ A convenient way to play Realm of the Mad God on Windows
 # Download
 tbd
 
+# Credits
+Authors of User Defined Functions are mentioned in the source code
+
 
 # Special thanks to
-
+WildShadow studios for creating Realm of the Mad God
+Kabam Inc. for keeping it alive
+DECA games for reviving it
+Elecmand for creating Projector+ and inspiring me to develop this
+BMJ for Creating Quickspeech and giving me ideas for this project
+CptVince for helping me a lot with the former project of this back in 2014
+andy12345 for creating the cursor rotmg.cur
+SuperDry for creatin the cursor rotmg2.cur (original post deleted)
+All the creators of the amazing UDFs like MetroGUI and _IsPressed
 
 # License
 MIT - See License.md
