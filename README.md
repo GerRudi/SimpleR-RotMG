@@ -24,7 +24,7 @@ A convenient way to play Realm of the Mad God on Windows
 
 
 # Download
-See [Releases](../../releases) for download
+See [Releases](../../releases/latest) for download
 
 If you have trouble setting it up, please check out the [Wiki](../../wiki).
 
