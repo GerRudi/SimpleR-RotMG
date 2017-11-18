@@ -38,7 +38,7 @@ If you have trouble setting it up, please check out the [Wiki](../../wiki).
 - Kabam Inc. for keeping it alive
 - [DECA games](http://decagames.com) for reviving it
 - Elecmad for creating [Projector+](http://web.archive.org/web/20120326163330/http://forums.wildshadow.com/node/64729) and inspiring me to develop this
-- [BMJ](https://www.realmeye.com/player/bmj) for Creating Quickspeech and giving me ideas for this project
+- [BMJ](https://www.realmeye.com/player/bmj) for creating Quickspeech and giving me ideas for this project
 - CptVince for helping me a lot with the former project of this back in 2014
 - andy12345 for creating the cursor [rotmg.cur](http://www.rw-designer.com/cursor-detail/27070) on rw-designer
 - SuperDry for creating the cursor rotmg2.cur (original post deleted)
