@@ -1,7 +1,3 @@
-# COMING SOON! - Not available for download yet.
-
-
-
 <img src="data/Icons/SimpleR.png" width="100">
 
 # SimpleR-RotMG
@@ -23,6 +19,7 @@ A convenient way to play Realm of the Mad God on Windows
 - Launch an additional program like Discord when starting the game
 - Set up & Teleport to a temporary safe anchor
 - Annoyed by a bot? Ignore the person that most recently sent you a private message
+- Quick access to MrEyeball commands, Master Rat answers, ...
 - Open source
 
 
