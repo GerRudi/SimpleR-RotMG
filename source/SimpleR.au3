@@ -6,7 +6,7 @@
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=p
 #AutoIt3Wrapper_Res_LegalCopyright=GerRudi
 #AutoIt3Wrapper_Res_Language=1033
-#AutoIt3Wrapper_Res_HiDpi=y
+#AutoIt3Wrapper_Res_HiDpi=n
 #AutoIt3Wrapper_Run_Au3Stripper=y
 #Au3Stripper_Parameters=/so /rm /pe
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
