@@ -22,7 +22,6 @@
 #Region MetroGUI settings
 
 #Au3Stripper_Ignore_Funcs=_iHoverOn,_iHoverOff,_iFullscreenToggleBtn,_cHvr_CSCP_X64,_cHvr_CSCP_X86,_iControlDelete
-_Metro_EnableHighDPIScaling() ; Note: Requries "#AutoIt3Wrapper_Res_HiDpi=y" for compiling.
 _SetTheme("DarkBlue")
 
 #EndRegion MetroGUI settings
