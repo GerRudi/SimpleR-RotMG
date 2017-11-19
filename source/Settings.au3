@@ -22,6 +22,7 @@
 #Region MetroGUI settings
 
 #Au3Stripper_Ignore_Funcs=_iHoverOn,_iHoverOff,_iFullscreenToggleBtn,_cHvr_CSCP_X64,_cHvr_CSCP_X86,_iControlDelete
+_Metro_EnableHighDPIScaling() ; Note: Requries "#AutoIt3Wrapper_Res_HiDpi=y" for compiling.
 _SetTheme("DarkBlue")
 
 #EndRegion MetroGUI settings
@@ -31,7 +32,6 @@ AutoItSetOption("GUICloseOnESC", 0)
 
 ;Create resizable Metro GUI
 $Form1 = _Metro_CreateGUI("SimpleR Settings", 800, 700, -1, -1, True)
-_Metro_EnableHighDPIScaling() ; Note: Requries "#AutoIt3Wrapper_Res_HiDpi=y" for compiling.
 
 ;Add/create control buttons to the GUI
 $Control_Buttons = _Metro_AddControlButtons(True, True, True, True, True) ;CloseBtn = True, MaximizeBtn = True, MinimizeBtn = True, FullscreenBtn = True, MenuBtn = True
