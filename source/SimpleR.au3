@@ -63,7 +63,7 @@ AutoItSetOption("SendKeyDelay", 1)
 AutoItSetOption("SendKeyDownDelay", 1)
 
 Func main()
-
+    _Metro_EnableHighDPIScaling()
 	$savedGeneral = GetGeneral()
 	$savedPaths = GetPaths()
 
