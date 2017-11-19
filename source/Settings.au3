@@ -4,7 +4,7 @@
 #AutoIt3Wrapper_Res_Description=Settings GUI for SimpleR
 #AutoIt3Wrapper_Res_Fileversion=1.0.0.0
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=p
-#AutoIt3Wrapper_Res_HiDpi=y
+#AutoIt3Wrapper_Res_HiDpi=n
 #AutoIt3Wrapper_Run_Au3Stripper=y
 #Au3Stripper_Parameters=/so /rm /pe
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -22,7 +22,6 @@
 #Region MetroGUI settings
 
 #Au3Stripper_Ignore_Funcs=_iHoverOn,_iHoverOff,_iFullscreenToggleBtn,_cHvr_CSCP_X64,_cHvr_CSCP_X86,_iControlDelete
-_Metro_EnableHighDPIScaling() ; Note: Requries "#AutoIt3Wrapper_Res_HiDpi=y" for compiling.
 _SetTheme("DarkBlue")
 
 #EndRegion MetroGUI settings
