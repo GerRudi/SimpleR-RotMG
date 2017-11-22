@@ -2,8 +2,8 @@
 #AutoIt3Wrapper_Icon=..\data\Icons\SimpleR.ico
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Simple launcher to play RotMG
-#AutoIt3Wrapper_Res_Fileversion=1.0.0.0
-#AutoIt3Wrapper_Res_Fileversion_AutoIncrement=p
+#AutoIt3Wrapper_Res_Fileversion=1.0.1.0
+#AutoIt3Wrapper_Res_Fileversion_AutoIncrement=n
 #AutoIt3Wrapper_Res_LegalCopyright=GerRudi
 #AutoIt3Wrapper_Res_Language=1033
 #AutoIt3Wrapper_Res_HiDpi=n
