@@ -4,6 +4,8 @@
 #AutoIt3Wrapper_Res_Description=Settings GUI for SimpleR
 #AutoIt3Wrapper_Res_Fileversion=1.0.1.0
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=n
+#AutoIt3Wrapper_Res_LegalCopyright=GerRudi
+#AutoIt3Wrapper_Res_Language=1033
 #AutoIt3Wrapper_Run_Au3Stripper=y
 #Au3Stripper_Parameters=/so /rm /pe
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
