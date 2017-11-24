@@ -174,7 +174,7 @@ Func main()
 	ProcessSetPriority($pid, 4)
 
 	If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then
-		TrayTip("Warning", "Force Focus is activated! Use the hotkey or rightclick the Icon to disable! " & "You can deactivate it permanently in the Settings. ", 5, 2)
+		TrayTip("Warning", "Force Focus is activated! Use the hotkey to disable or press the Windows Key get out of the window! " & "You can deactivate it permanently in the Settings. ", 5, 2)
 	EndIf
 
 	If $savedGeneral[$bCustomCursor][$cAIactive] = 1 And FileExists($savedPaths[$sCustomCursorPath][$cAIcontent]) Then
@@ -183,72 +183,73 @@ Func main()
 
 	While WinExists($hWnd)
 
-
-		If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then ;bKeepWindowFocused - Warning: aggressive!
-			If Not WinActive($hWnd) Then
-				WinActivate($hWnd)
+		If WinActive($hWnd) Then
+			If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then ;bKeepWindowFocused
+				$aCoords = WinGetPos($hWnd)
+				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8) ;alternative: $aCoords[1] + 50
 			EndIf
-		EndIf
 
-		;MACROS
-		If $savedGeneral[$bMacros][$cAIactive] = 1 Then
-			For $i = UBound($savedMacros, 1) - 1 To 0 Step -1
-				If _IsPressed($savedMacros[$i][$cAIKey]) Then
-					_SendMacro($savedMacros[$i][$cAImacrotext], $chat)
-					Do
-						Sleep(100)
-					Until Not _IsPressed($savedMacros[$i][$cAIKey])
-				EndIf
+			;MACROS
+			If $savedGeneral[$bMacros][$cAIactive] = 1 Then
+				For $i = UBound($savedMacros, 1) - 1 To 0 Step -1
+					If _IsPressed($savedMacros[$i][$cAIKey]) Then
+						_SendMacro($savedMacros[$i][$cAImacrotext], $chat)
+						Do
+							Sleep(100)
+						Until Not _IsPressed($savedMacros[$i][$cAIKey])
+					EndIf
 
-			Next
-		EndIf
+				Next
+			EndIf
 
-		If $savedGeneral[$bHotkeys][$cAIactive] = 1 Then
-			For $i = UBound($savedHotkeys, 1) - 1 To 0 Step -1
-				If _IsPressed($savedHotkeys[$i][$cAIKey]) Then
-					Switch $savedHotkeys[$i][$cAIdescription]
+			If $savedGeneral[$bHotkeys][$cAIactive] = 1 Then
+				For $i = UBound($savedHotkeys, 1) - 1 To 0 Step -1
+					If _IsPressed($savedHotkeys[$i][$cAIKey]) Then
+						Switch $savedHotkeys[$i][$cAIdescription]
 
-						Case "ResetSize"
-							_solutionchange()
-						Case "43Maximize"
-							_43Maximize()
-						Case "Screenshot"
-							_captureShot($savedGeneral[$bCursorOnScreenshot][$cAIactive])
-						Case "SetAnchor"
-							$newanchor = _Metro_InputBox("Please enter the name of your anchor", 11, $savedGeneral[$sDefaultAnchor][$cAIcontent], False, True, $hWnd)
-							If Not @error Then
-								$savedGeneral[$sDefaultAnchor][$cAIcontent] = $newanchor
-							EndIf
-						Case "TPAnchor"
-							_TPAnchor($savedGeneral[$sDefaultAnchor][$cAIcontent], $chat, $savedIngame[$igCommand][$cAIKey])
-						Case "IgnorePM"
-							_IgnorePM($tell, $savedIngame[$igCommand][$cAIKey])
-						Case "ToggleFocus"
-							$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
-						Case "ActualFullscreen"
-							If $AF_active = 0 Then
-								_ChangeScreenRes(800, 600, @DesktopDepth, @DesktopRefresh)
-								$AF_active = 1
-								WinActivate($hWnd)
-								Send('^f') ;hotkey to activate flash projector fullscreen
-							Else
-								$s = _ChangeScreenRes($Dkstp_w, $Dkstp_h, @DesktopDepth, @DesktopRefresh)
-								$AF_active = 0
-								WinActivate($hWnd)
-								Send('{ESC}') ;exit flash projector fullscreen
-								Sleep(100)
+							Case "ResetSize"
 								_solutionchange()
-							EndIf
-						Case Else
-					EndSwitch
-					Do
-						Sleep(200)
-					Until Not _IsPressed($savedHotkeys[$i][$cAIKey])
-				EndIf
-			Next
+							Case "43Maximize"
+								_43Maximize()
+							Case "Screenshot"
+								_captureShot($savedGeneral[$bCursorOnScreenshot][$cAIactive])
+							Case "SetAnchor"
+								$newanchor = _Metro_InputBox("Please enter the name of your anchor", 11, $savedGeneral[$sDefaultAnchor][$cAIcontent], False, True, $hWnd)
+								If Not @error Then
+									$savedGeneral[$sDefaultAnchor][$cAIcontent] = $newanchor
+								EndIf
+							Case "TPAnchor"
+								_TPAnchor($savedGeneral[$sDefaultAnchor][$cAIcontent], $chat, $savedIngame[$igCommand][$cAIKey])
+							Case "IgnorePM"
+								_IgnorePM($tell, $savedIngame[$igCommand][$cAIKey])
+							Case "ToggleFocus"
+								$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
+							Case "ActualFullscreen"
+								If $AF_active = 0 Then
+									_ChangeScreenRes(800, 600, @DesktopDepth, @DesktopRefresh)
+									$AF_active = 1
+									WinActivate($hWnd)
+									Send('^f') ;hotkey to activate flash projector fullscreen
+								Else
+									$s = _ChangeScreenRes($Dkstp_w, $Dkstp_h, @DesktopDepth, @DesktopRefresh)
+									$AF_active = 0
+									WinActivate($hWnd)
+									Send('{ESC}') ;exit flash projector fullscreen
+									Sleep(100)
+									_solutionchange()
+								EndIf
+							Case Else
+						EndSwitch
+						Do
+							Sleep(200)
+						Until Not _IsPressed($savedHotkeys[$i][$cAIKey])
+					EndIf
+				Next
 
+			EndIf
+		Else
+			_MouseTrap()
 		EndIf
-
 		Switch TrayGetMsg()
 			Case $trayForceFocus
 				$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
