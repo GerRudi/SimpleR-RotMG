@@ -51,6 +51,42 @@ Else
 	$AF_compatible = 0
 EndIf
 
+
+Global $trayForceFocus
+Global $traySettings
+Global $trayReloadSettings
+Global $trayCommands
+Global $trayMrEyeball
+Global $trayMETtagcheater
+Global $trayMETtagscammer
+Global $trayMETUNtagcheater
+Global $trayMETUNtagscammer
+Global $trayMETcheckscammer
+Global $trayMEpassword
+Global $trayMEstats
+Global $trayMElefttomax
+Global $trayMEhideme
+Global $trayMEfriends
+Global $trayMEserver
+Global $trayMEmates
+Global $trayMEguild
+Global $trayCommandEvent
+Global $trayCommandClasses
+Global $trayCommandWho
+Global $trayCommandNexustutorial
+Global $trayCommandServer
+Global $traySewer
+Global $traySewerTime
+Global $traySewerPlace
+Global $traySewerNight
+Global $traySewerLike
+Global $traySewerWho
+Global $traySiteRealmeye
+Global $traySiteReddit
+Global $traySitePfiffel
+Global $traySiteProject
+Global $trayExit
+
 ; ########################################## FUNCTION CALLS ###########################################
 main() ;main call
 end() ;end call
@@ -554,55 +590,55 @@ Func _TrayItems()
 
 	TrayCreateItem("")
 	;Options
-	Global $traySettings = TrayCreateItem("Open Settings")
-	Global $trayReloadSettings = TrayCreateItem("Reload Settings")
+	$traySettings = TrayCreateItem("Open Settings")
+	$trayReloadSettings = TrayCreateItem("Reload Settings")
 	TrayCreateItem("")
-	Global $trayCommands = TrayCreateMenu("Commands")
+	$trayCommands = TrayCreateMenu("Commands")
 
-	Global $trayMrEyeball = TrayCreateMenu("Mr. Eyeball", $trayCommands)
+	$trayMrEyeball = TrayCreateMenu("Mr. Eyeball", $trayCommands)
 
-	Global $trayMETtagcheater = TrayCreateItem("cheater <player>", $trayMrEyeball)
-	Global $trayMETtagscammer = TrayCreateItem("scammer <player>", $trayMrEyeball)
-	Global $trayMETUNtagcheater = TrayCreateItem("NO cheater <player>", $trayMrEyeball)
-	Global $trayMETUNtagscammer = TrayCreateItem("NO scammer <player>", $trayMrEyeball)
-	Global $trayMETcheckscammer = TrayCreateItem("CHECK if scammer <player>", $trayMrEyeball)
+	$trayMETtagcheater = TrayCreateItem("cheater <player>", $trayMrEyeball)
+	$trayMETtagscammer = TrayCreateItem("scammer <player>", $trayMrEyeball)
+	$trayMETUNtagcheater = TrayCreateItem("NO cheater <player>", $trayMrEyeball)
+	$trayMETUNtagscammer = TrayCreateItem("NO scammer <player>", $trayMrEyeball)
+	$trayMETcheckscammer = TrayCreateItem("CHECK if scammer <player>", $trayMrEyeball)
 	TrayCreateItem("", $trayMrEyeball)
 
-	Global $trayMEpassword = TrayCreateItem("Password", $trayMrEyeball)
-	Global $trayMEstats = TrayCreateItem("Stats", $trayMrEyeball)
-	Global $trayMElefttomax = TrayCreateItem("LeftToMax", $trayMrEyeball)
-	Global $trayMEhideme = TrayCreateItem("Hide Me", $trayMrEyeball)
+	$trayMEpassword = TrayCreateItem("Password", $trayMrEyeball)
+	$trayMEstats = TrayCreateItem("Stats", $trayMrEyeball)
+	$trayMElefttomax = TrayCreateItem("LeftToMax", $trayMrEyeball)
+	$trayMEhideme = TrayCreateItem("Hide Me", $trayMrEyeball)
 
-	Global $trayMEfriends = TrayCreateItem("Friends", $trayMrEyeball)
-	Global $trayMEserver = TrayCreateItem("Server", $trayMrEyeball)
+	$trayMEfriends = TrayCreateItem("Friends", $trayMrEyeball)
+	$trayMEserver = TrayCreateItem("Server", $trayMrEyeball)
 	TrayCreateItem("", $trayMrEyeball)
-	Global $trayMEmates = TrayCreateItem("Mates", $trayMrEyeball)
-	Global $trayMEguild = TrayCreateItem("Hide My Guild", $trayMrEyeball)
+	$trayMEmates = TrayCreateItem("Mates", $trayMrEyeball)
+	$trayMEguild = TrayCreateItem("Hide My Guild", $trayMrEyeball)
 
 	TrayCreateItem("", $trayCommands)
-	Global $trayCommandEvent = TrayCreateItem("/event", $trayCommands)
-	Global $trayCommandClasses = TrayCreateItem("/classes", $trayCommands)
-	Global $trayCommandWho = TrayCreateItem("/who", $trayCommands)
-	Global $trayCommandNexustutorial = TrayCreateItem("/nexustutorial", $trayCommands)
-	Global $trayCommandServer = TrayCreateItem("/server", $trayCommands)
+	$trayCommandEvent = TrayCreateItem("/event", $trayCommands)
+	$trayCommandClasses = TrayCreateItem("/classes", $trayCommands)
+	$trayCommandWho = TrayCreateItem("/who", $trayCommands)
+	$trayCommandNexustutorial = TrayCreateItem("/nexustutorial", $trayCommands)
+	$trayCommandServer = TrayCreateItem("/server", $trayCommands)
 
 	TrayCreateItem("", $trayCommands)
-	Global $traySewer = TrayCreateMenu("Master Rat Answers", $trayCommands)
-	Global $traySewerTime = TrayCreateItem("What time is it? ", $traySewer)
-	Global $traySewerPlace = TrayCreateItem("Where is the safest place in the world? ", $traySewer)
-	Global $traySewerNight = TrayCreateItem("What is fast, quiet and hidden by the night? ", $traySewer)
-	Global $traySewerLike = TrayCreateItem("How do you like your pizza? ", $traySewer)
-	Global $traySewerWho = TrayCreateItem("Who did this to me? ", $traySewer)
+	$traySewer = TrayCreateMenu("Master Rat Answers", $trayCommands)
+	$traySewerTime = TrayCreateItem("What time is it? ", $traySewer)
+	$traySewerPlace = TrayCreateItem("Where is the safest place in the world? ", $traySewer)
+	$traySewerNight = TrayCreateItem("What is fast, quiet and hidden by the night? ", $traySewer)
+	$traySewerLike = TrayCreateItem("How do you like your pizza? ", $traySewer)
+	$traySewerWho = TrayCreateItem("Who did this to me? ", $traySewer)
 
 	TrayCreateItem("")
 	;Misc
-	Global $traySiteRealmeye = TrayCreateItem("Visit RealmEye.com")
-	Global $traySiteReddit = TrayCreateItem("Visit /r/RotMG")
-	Global $traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
-	Global $traySiteProject = TrayCreateItem("Visit the SimpleR website")
+	$traySiteRealmeye = TrayCreateItem("Visit RealmEye.com")
+	$traySiteReddit = TrayCreateItem("Visit /r/RotMG")
+	$traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
+	$traySiteProject = TrayCreateItem("Visit the SimpleR website")
 	TrayCreateItem("")
 	;Exit
-	Global $trayExit = TrayCreateItem("Exit")
+	$trayExit = TrayCreateItem("Exit")
 
 	TraySetState(1) ; Show the tray menu.
 EndFunc   ;==>_TrayItems
