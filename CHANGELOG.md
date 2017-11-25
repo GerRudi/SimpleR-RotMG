@@ -3,7 +3,7 @@
 ## [v1.1.0] - 2017-11-25
 ### Added
 - changelog
-- animated cursor
+- animated cursors
 
 ### Changed
 - Force Focus now traps the mouse to the game window instead of unreliable window activating
