@@ -6,81 +6,89 @@
 
 
 #Region Functions
-Func GetGeneral($uselocal=1)
+Func GetGeneral($uselocal = 1)
 	Local $array
-	Local $bFileExists = FileExists($pathGeneral)
-    If $bFileExists And	$uselocal=1 Then
+	Local $arrayDefault = DefaultGeneral()
+
+	If FileExists($pathGeneral) And $uselocal = 1 Then
 		$array = _LoadFromCSV2D($pathGeneral)
-    Else
-		$array = DefaultGeneral()
-		_SaveToCSV($pathGeneral, $array)
-    EndIf
+		$array = _UpdateArray($array, $arrayDefault, $pathGeneral)
+	Else
+		$array=$arrayDefault
+		_SaveToCSV($pathGeneral, $arrayDefault)
+	EndIf
 	Return $array
-EndFunc
+EndFunc   ;==>GetGeneral
 
-Func GetPaths($uselocal=1)
+Func GetPaths($uselocal = 1)
 	Local $array
-	Local $bFileExists = FileExists($pathPaths)
-    If $bFileExists Then
+	Local $arrayDefault = DefaultPaths()
+
+	If FileExists($pathPaths) And $uselocal = 1 Then
 		$array = _LoadFromCSV2D($pathPaths)
-    Else
-		$array = DefaultPaths()
-		_SaveToCSV($pathPaths, $array)
-    EndIf
-
-	For $i = 0 to Ubound($array, 1) -1
-
-		$array[$i][1] = _PathConvert($array[$i][1])
+		$array = _UpdateArray($array, $arrayDefault, $pathPaths)
+	Else
+		$array=$arrayDefault
+		_SaveToCSV($pathPaths, $arrayDefault)
+	EndIf
+	For $i = 0 To UBound($array, 1) - 1
+		$array[$i][1] = _PathConvert($array[$i][$cAIcontent])
 	Next
 	Return $array
-EndFunc
+EndFunc   ;==>GetPaths
 
-Func GetMacros($uselocal=1)
+Func GetMacros($uselocal = 1)
 	Local $array
-	Local $bFileExists = FileExists($pathMacros)
-    If $bFileExists And	$uselocal=1 Then
+	Local $arrayDefault = DefaultMacros()
+
+	If FileExists($pathMacros) And $uselocal = 1 Then
 		$array = _LoadFromCSV2D($pathMacros)
-    Else
-		$array = DefaultMacros()
-		_SaveToCSV($pathMacros, $array)
-    EndIf
+		$array = _UpdateArray($array, $arrayDefault, $pathMacros)
+	Else
+		$array=$arrayDefault
+		_SaveToCSV($pathMacros, $arrayDefault)
+	EndIf
 	Return $array
-EndFunc
+EndFunc   ;==>GetMacros
 
 
 
-Func GetIngame($uselocal=1)
+Func GetIngame($uselocal = 1)
 	Local $array
-	Local $bFileExists = FileExists($pathIngame)
-    If $bFileExists And $uselocal=1 Then
+	Local $arrayDefault = DefaultIngame()
+
+	If FileExists($pathIngame) And $uselocal = 1 Then
 		$array = _LoadFromCSV2D($pathIngame)
-    Else
-		$array = DefaultIngame()
-		_SaveToCSV($pathIngame, $array)
-    EndIf
+		$array = _UpdateArray($array, $arrayDefault, $pathIngame)
+	Else
+		$array=$arrayDefault
+		_SaveToCSV($pathIngame, $arrayDefault)
+	EndIf
 	Return $array
-EndFunc
+EndFunc   ;==>GetIngame
 
-Func GetHotkeys($uselocal=1)
+Func GetHotkeys($uselocal = 1)
 	Local $array
-	Local $bFileExists = FileExists($pathHotkeys)
-    If $bFileExists And	$uselocal=1 Then
+	Local $arrayDefault = DefaultHotkeys()
+
+	If FileExists($pathHotkeys) And $uselocal = 1 Then
 		$array = _LoadFromCSV2D($pathHotkeys)
-    Else
-		$array = DefaultHotkeys()
-		_SaveToCSV($pathHotkeys, $array)
-    EndIf
+		$array = _UpdateArray($array, $arrayDefault, $pathHotkeys)
+	Else
+		$array=$arrayDefault
+		_SaveToCSV($pathHotkeys, $arrayDefault)
+	EndIf
 	Return $array
-EndFunc
+EndFunc   ;==>GetHotkeys
 
 
 
 #Region DefaultSettings
 Func DefaultGeneral()
 	Local $SettingsGeneral[][] = [ _
-            ["bTesting", "0"], _
-            ["bAGCLoader", "0"], _
-            ["bUseMacros", "1"], _
+			["bTesting", "0"], _
+			["bAGCLoader", "0"], _
+			["bUseMacros", "1"], _
 			["bUseHotkeys", "1"], _
 			["bCustomCursor", "1"], _
 			["bKongregate", "0"], _
@@ -122,14 +130,14 @@ Func DefaultGeneral()
 			["sReserved1", "reserved"], _
 			["sReserved1", "reserved"], _
 			["sReserved1", "reserved"], _
-            ["sReserved1", "reserved"]]
+			["sReserved1", "reserved"]]
 	Return $SettingsGeneral
-EndFunc
+EndFunc   ;==>DefaultGeneral
 
 Func DefaultPaths()
 	Local $SettingsPaths[][] = [ _
-            ["sFlashFile", "\data\flash.exe"], _
-            ["sCustomCursorPath", "\data\Cursors\rotmg.cur"], _
+			["sFlashFile", "\data\flash.exe"], _
+			["sCustomCursorPath", "\data\Cursors\rotmg.cur"], _
 			["sReserved1", "reserved"], _
 			["sReserved1", "reserved"], _
 			["sReserved1", "reserved"], _
@@ -140,7 +148,7 @@ Func DefaultPaths()
 			["sReserved1", "reserved"], _
 			["sReserved1", "reserved"]]
 	Return $SettingsPaths
-EndFunc
+EndFunc   ;==>DefaultPaths
 
 Func DefaultMacros()
 	Local $SettingsMacros[][] = [ _
@@ -159,9 +167,9 @@ Func DefaultMacros()
 			["MacroR", "0", "Key", "text"], _
 			["MacroR", "0", "Key", "text"], _
 			["MacroR", "0", "Key", "text"], _
-            ["MacroR", "0", "Key", "text"]]
+			["MacroR", "0", "Key", "text"]]
 	Return $SettingsMacros
-EndFunc
+EndFunc   ;==>DefaultMacros
 
 Func DefaultIngame()
 	Local $SettingsIngame[][] = [ _
@@ -176,10 +184,10 @@ Func DefaultIngame()
 			["reserved", "0", "Key"], _
 			["reserved", "0", "Key"], _
 			["reserved", "0", "Key"], _
-            ["reserved", "0", "Key"]]
+			["reserved", "0", "Key"]]
 
 	Return $SettingsIngame
-EndFunc
+EndFunc   ;==>DefaultIngame
 
 Func DefaultHotkeys()
 	Local $SettingsHotkeys[][] = [ _
@@ -199,23 +207,21 @@ Func DefaultHotkeys()
 			["HotkeyR", "0", "Key"], _
 			["HotkeyR", "0", "Key"], _
 			["HotkeyR", "0", "Key"], _
-            ["HotkeyR", "0", "Key"]]
+			["HotkeyR", "0", "Key"]]
 	Return $SettingsHotkeys
-EndFunc
+EndFunc   ;==>DefaultHotkeys
 
 
-#EndRegion
+#EndRegion DefaultSettings
 
 
 Func _PathConvert($path)
-	If StringInStr($path,":\")<>0 Then
-		ConsoleWrite ("Absolute path")
-	Else
-		$path = @ScriptDir  & $path
+	If Not StringInStr($path, ":\") <> 0 Then
+		$path = @ScriptDir & $path
 	EndIf
 
 	Return $path
-EndFunc
+EndFunc   ;==>_PathConvert
 
 Func _LoadFromCSV2D($csvSource)
 	Local $result
@@ -232,7 +238,7 @@ Func _LoadFromCSV2D($csvSource)
 		SetError(-1)
 		Return -1
 	EndIf
-EndFunc
+EndFunc   ;==>_LoadFromCSV2D
 
 Func _LoadFromCSV($csvSource)
 	Local $result
@@ -249,11 +255,13 @@ Func _LoadFromCSV($csvSource)
 		SetError(-1)
 		Return -1
 	EndIf
-EndFunc
+EndFunc   ;==>_LoadFromCSV
 
 Func _SaveToCSV($csvSource, $array)
-
-	_FileWriteFromArray($csvSource, $array, Default, Default , ";-")
+	If Not FileExists(@ScriptDir & "\data\") Then
+		DirCreate(@ScriptDir & "\data\")
+	EndIf
+	_FileWriteFromArray($csvSource, $array, Default, Default, ";-")
 
 	If @error Then
 		SetError(-1)
@@ -267,41 +275,41 @@ Func _SaveToCSV($csvSource, $array)
 		Return -1
 	EndIf
 
-EndFunc
+EndFunc   ;==>_SaveToCSV
 
 Func _ClearKeys($array, $type = 0)
-	For $i = Ubound($array, 1) -1 to 0 Step -1
-			If ($array[$i][1]) = 1 Then
-				If $type = 0 Then
-					$array[$i][2]=_GetKeyByAlpha($array[$i][2])
-				EndIf
-
-			Else
-				_ArrayDelete($array, $i)
+	For $i = UBound($array, 1) - 1 To 0 Step -1
+		If ($array[$i][1]) = 1 Then
+			If $type = 0 Then
+				$array[$i][$cAIKey] = _GetKeyByAlpha($array[$i][$cAIKey])
 			EndIf
+
+		Else
+			_ArrayDelete($array, $i)
+		EndIf
 	Next
 	Return $array
-EndFunc
+EndFunc   ;==>_ClearKeys
 
 Func _Compare2DArrays($arrayOLD, $arrayNEW)
-	For $i = 0 To UBound($arrayOLD)-1
+	For $i = 0 To UBound($arrayOLD) - 1
 
-		For $j = 0 To UBound($arrayOLD,2)-1
+		For $j = 0 To UBound($arrayOLD, 2) - 1
 			If $arrayOLD[$i][$j] <> $arrayNEW[$i][$j] Then
 				Return 1
 			EndIf
 		Next
 	Next
 	Return 0
-EndFunc
+EndFunc   ;==>_Compare2DArrays
 
-Func _ConvertPath($path, $dir=@ScriptDir)
+Func _ConvertPath($path, $dir = @ScriptDir)
 	Local $length = StringLen($dir)
 	If (StringInStr($path, $dir)) Then
-		$path=StringTrimLeft($path,$length)
+		$path = StringTrimLeft($path, $length)
 	EndIf
 	Return $path
-EndFunc
+EndFunc   ;==>_ConvertPath
 
 
 Func _ResetSettings()
@@ -310,7 +318,26 @@ Func _ResetSettings()
 	$array = GetMacros(0)
 	$array = GetIngame(0)
 	$array = GetHotkeys(0)
-EndFunc
+EndFunc   ;==>_ResetSettings
 
-#EndRegion
+Func _UpdateArray($savedArray, $defaultArray, $savePath)
+	Local $updated = 0
+	For $i = 0 To UBound($savedArray) - 1
+		If $savedArray[$i][$cAIdescription] <> $defaultArray[$i][$cAIdescription] Then
+			For $j = 0 To UBound($savedArray, 2) - 1
+				$savedArray[$i][$j] = $defaultArray[$i][$j]
+			Next
+			$updated = 1
+		EndIf
+	Next
+	If $updated = 1 Then
+		_SaveToCSV($savePath, $savedArray)
+	EndIf
+	Return $savedArray
+EndFunc   ;==>_UpdateArray
+
+
+
+
+#EndRegion Functions
 
