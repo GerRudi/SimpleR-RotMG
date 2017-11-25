@@ -14,6 +14,7 @@ Func GetGeneral($uselocal = 1)
 		$array = _LoadFromCSV2D($pathGeneral)
 		$array = _UpdateArray($array, $arrayDefault, $pathGeneral)
 	Else
+		$array=$arrayDefault
 		_SaveToCSV($pathGeneral, $arrayDefault)
 	EndIf
 	Return $array
@@ -27,6 +28,7 @@ Func GetPaths($uselocal = 1)
 		$array = _LoadFromCSV2D($pathPaths)
 		$array = _UpdateArray($array, $arrayDefault, $pathPaths)
 	Else
+		$array=$arrayDefault
 		_SaveToCSV($pathPaths, $arrayDefault)
 	EndIf
 	For $i = 0 To UBound($array, 1) - 1
@@ -43,6 +45,7 @@ Func GetMacros($uselocal = 1)
 		$array = _LoadFromCSV2D($pathMacros)
 		$array = _UpdateArray($array, $arrayDefault, $pathMacros)
 	Else
+		$array=$arrayDefault
 		_SaveToCSV($pathMacros, $arrayDefault)
 	EndIf
 	Return $array
@@ -58,6 +61,7 @@ Func GetIngame($uselocal = 1)
 		$array = _LoadFromCSV2D($pathIngame)
 		$array = _UpdateArray($array, $arrayDefault, $pathIngame)
 	Else
+		$array=$arrayDefault
 		_SaveToCSV($pathIngame, $arrayDefault)
 	EndIf
 	Return $array
@@ -71,6 +75,7 @@ Func GetHotkeys($uselocal = 1)
 		$array = _LoadFromCSV2D($pathHotkeys)
 		$array = _UpdateArray($array, $arrayDefault, $pathHotkeys)
 	Else
+		$array=$arrayDefault
 		_SaveToCSV($pathHotkeys, $arrayDefault)
 	EndIf
 	Return $array
