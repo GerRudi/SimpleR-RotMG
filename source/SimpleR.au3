@@ -40,7 +40,8 @@ TraySetIcon(@ScriptFullPath, 0)
 
 
 ; ########################################## VARIABLES ################################################
-Global $hWnd_FP ;path to the config file
+Global $defaultCursor = RegRead("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow")
+Global $hWnd_FP
 Local $t = _ScreenCompatibility()
 Global $AF_compatible
 Global $AF_active = 0
@@ -187,7 +188,8 @@ Func main()
 		If WinActive($hWnd) Then
 			If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then ;bKeepWindowFocused
 				$aCoords = WinGetPos($hWnd)
-				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8) ;alternative: $aCoords[1] + 50
+				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8)
+				;alternative: $aCoords[1] + 50 would trap the mouse ONLY to the flash content, excluding the title and menubar (has to be disabled in order to close the window)
 			EndIf
 
 			;MACROS
@@ -545,7 +547,7 @@ EndFunc   ;==>_captureShot
 
 
 
-Func end($a = 0) ;cursor reset
+Func end($a = "cursor.ani") ;cursor reset
 	_SetCursor($a, $OCR_NORMAL, 1)
 	If @DesktopWidth <> $Dkstp_w Then
 		_ChangeScreenRes($Dkstp_w, $Dkstp_h, @DesktopDepth, @DesktopRefresh)
@@ -565,22 +567,30 @@ Func _SetCursor($CursorFile, $RepCursor, $flag = 0) ;changes cursor
 	Local Const $SPI_SETCURSORS = 0x0057 ;Used in $flag 1 to restore Cursor
 	Local $temp
 	If $flag = 0 Then
-		$temp = DllCall($user32, 'int', 'LoadCursorFromFile', 'str', $CursorFile)
-		If Not @error Then
-			DllCall($user32, 'int', 'SetSystemCursor', 'int', $temp[0], 'int', $RepCursor)
-			If Not @error Then
-				DllCall($user32, 'int', 'DestroyCursor', 'int', $temp[0])
-			Else
-				Return -2
-			EndIf
+		If StringInStr($CursorFile, ".ani") <> 0 Then
+			RegWrite("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow", "REG_EXPAND_SZ", $CursorFile)
+			DllCall("user32.dll", 'int', 'SystemParametersInfo', 'int', $SPI_SETCURSORS, 'int', 0, 'int', 0, 'int', 0)
 		Else
-			Return -1
+			$temp = DllCall($user32, 'int', 'LoadCursorFromFile', 'str', $CursorFile)
+			If Not @error Then
+				DllCall($user32, 'int', 'SetSystemCursor', 'int', $temp[0], 'int', $RepCursor)
+				If Not @error Then
+					DllCall($user32, 'int', 'DestroyCursor', 'int', $temp[0])
+				Else
+					Return -2
+				EndIf
+			Else
+				Return -1
+			EndIf
 		EndIf
 	ElseIf $flag = 1 Then
-		DllCall($user32, 'int', 'SystemParametersInfo', 'int', $SPI_SETCURSORS, 'int', 0, 'int', 0, 'int', 0)
-		If @error Then
-			Return -3
+		If StringInStr($CursorFile, ".ani") <> 0 Then
+			RegWrite("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow", "REG_EXPAND_SZ", $defaultCursor)
 		EndIf
+			DllCall($user32, 'int', 'SystemParametersInfo', 'int', $SPI_SETCURSORS, 'int', 0, 'int', 0, 'int', 0)
+			If @error Then
+				Return -3
+			EndIf
 	EndIf
 EndFunc   ;==>_SetCursor
 
