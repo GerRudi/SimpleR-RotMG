@@ -40,6 +40,7 @@ If you have trouble setting it up, please check out the [Wiki](../../wiki).
 - andy12345 for creating the cursor [rotmg.cur](http://www.rw-designer.com/cursor-detail/27070) on rw-designer
 - SuperDry for creating the cursor rotmg2.cur (original post deleted)
 - MusubiBrah for creating the cursor [cornerAnimated.ani](http://www.rw-designer.com/cursor-detail/64173)
+- NizeDude for creating the cursor [rotmgAnimated.ani](http://www.rw-designer.com/cursor-detail/91551)
 - All the creators of the amazing UDFs like [MetroGUI](https://www.autoitscript.com/forum/topic/161184-metrogui-udf-v51-windows-10-style-buttons-toggles-radios-menu-etc/) and [_IsPressed](https://www.autoitscript.com/forum/topic/86296-ispressed_udf-v23-advanced-keypress/)
 
 # License
