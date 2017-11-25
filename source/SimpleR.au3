@@ -29,6 +29,7 @@
 ;YOU NEED TO EXCLUDE FOLLOWING FUNCTIONS FROM AU3STRIPPER, OTHERWISE IT WON'T WORK:
 #Au3Stripper_Ignore_Funcs=_iHoverOn,_iHoverOff,_iFullscreenToggleBtn,_cHvr_CSCP_X64,_cHvr_CSCP_X86,_iControlDelete
 ;Please not that Au3Stripper will show errors. You can ignore them as long as you use the above Au3Stripper_Ignore_Funcs parameters.
+;Above code is to avoid Keycodig Misformat
 #EndRegion MetroGUI
 
 
@@ -39,7 +40,8 @@ TraySetIcon(@ScriptFullPath, 0)
 
 
 ; ########################################## VARIABLES ################################################
-Global $hWnd_FP ;path to the config file
+Global $defaultCursor = RegRead("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow")
+Global $hWnd_FP
 Local $t = _ScreenCompatibility()
 Global $AF_compatible
 Global $AF_active = 0
@@ -50,6 +52,42 @@ If IsArray($t) Then
 Else
 	$AF_compatible = 0
 EndIf
+
+
+Global $trayForceFocus
+Global $traySettings
+Global $trayReloadSettings
+Global $trayCommands
+Global $trayMrEyeball
+Global $trayMETtagcheater
+Global $trayMETtagscammer
+Global $trayMETUNtagcheater
+Global $trayMETUNtagscammer
+Global $trayMETcheckscammer
+Global $trayMEpassword
+Global $trayMEstats
+Global $trayMElefttomax
+Global $trayMEhideme
+Global $trayMEfriends
+Global $trayMEserver
+Global $trayMEmates
+Global $trayMEguild
+Global $trayCommandEvent
+Global $trayCommandClasses
+Global $trayCommandWho
+Global $trayCommandNexustutorial
+Global $trayCommandServer
+Global $traySewer
+Global $traySewerTime
+Global $traySewerPlace
+Global $traySewerNight
+Global $traySewerLike
+Global $traySewerWho
+Global $traySiteRealmeye
+Global $traySiteReddit
+Global $traySitePfiffel
+Global $traySiteProject
+Global $trayExit
 
 ; ########################################## FUNCTION CALLS ###########################################
 main() ;main call
@@ -138,7 +176,7 @@ Func main()
 	ProcessSetPriority($pid, 4)
 
 	If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then
-		TrayTip("Warning", "Force Focus is activated! Use the hotkey or rightclick the Icon to disable! " & "You can deactivate it permanently in the Settings. ", 5, 2)
+		TrayTip("Warning", "Force Focus is activated! Use the hotkey to disable or press the Windows Key get out of the window! " & "You can deactivate it permanently in the Settings. ", 5, 2)
 	EndIf
 
 	If $savedGeneral[$bCustomCursor][$cAIactive] = 1 And FileExists($savedPaths[$sCustomCursorPath][$cAIcontent]) Then
@@ -147,72 +185,74 @@ Func main()
 
 	While WinExists($hWnd)
 
-
-		If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then ;bKeepWindowFocused - Warning: aggressive!
-			If Not WinActive($hWnd) Then
-				WinActivate($hWnd)
+		If WinActive($hWnd) Then
+			If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then ;bKeepWindowFocused
+				$aCoords = WinGetPos($hWnd)
+				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8)
+				;alternative: $aCoords[1] + 50 would trap the mouse ONLY to the flash content, excluding the title and menubar (has to be disabled in order to close the window)
 			EndIf
-		EndIf
 
-		;MACROS
-		If $savedGeneral[$bMacros][$cAIactive] = 1 Then
-			For $i = UBound($savedMacros, 1) - 1 To 0 Step -1
-				If _IsPressed($savedMacros[$i][$cAIKey]) Then
-					_SendMacro($savedMacros[$i][$cAImacrotext], $chat)
-					Do
-						Sleep(100)
-					Until Not _IsPressed($savedMacros[$i][$cAIKey])
-				EndIf
+			;MACROS
+			If $savedGeneral[$bMacros][$cAIactive] = 1 Then
+				For $i = UBound($savedMacros, 1) - 1 To 0 Step -1
+					If _IsPressed($savedMacros[$i][$cAIKey]) Then
+						_SendMacro($savedMacros[$i][$cAImacrotext], $chat)
+						Do
+							Sleep(100)
+						Until Not _IsPressed($savedMacros[$i][$cAIKey])
+					EndIf
 
-			Next
-		EndIf
+				Next
+			EndIf
 
-		If $savedGeneral[$bHotkeys][$cAIactive] = 1 Then
-			For $i = UBound($savedHotkeys, 1) - 1 To 0 Step -1
-				If _IsPressed($savedHotkeys[$i][$cAIKey]) Then
-					Switch $savedHotkeys[$i][$cAIdescription]
+			If $savedGeneral[$bHotkeys][$cAIactive] = 1 Then
+				For $i = UBound($savedHotkeys, 1) - 1 To 0 Step -1
+					If _IsPressed($savedHotkeys[$i][$cAIKey]) Then
+						Switch $savedHotkeys[$i][$cAIdescription]
 
-						Case "ResetSize"
-							_solutionchange()
-						Case "43Maximize"
-							_43Maximize()
-						Case "Screenshot"
-							_captureShot($savedGeneral[$bCursorOnScreenshot][$cAIactive])
-						Case "SetAnchor"
-							$newanchor = _Metro_InputBox("Please enter the name of your anchor", 11, $savedGeneral[$sDefaultAnchor][$cAIcontent], False, True, $hWnd)
-							If Not @error Then
-								$savedGeneral[$sDefaultAnchor][$cAIcontent] = $newanchor
-							EndIf
-						Case "TPAnchor"
-							_TPAnchor($savedGeneral[$sDefaultAnchor][$cAIcontent], $chat, $savedIngame[$igCommand][$cAIKey])
-						Case "IgnorePM"
-							_IgnorePM($tell, $savedIngame[$igCommand][$cAIKey])
-						Case "ToggleFocus"
-							$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
-						Case "ActualFullscreen"
-							If $AF_active = 0 Then
-								_ChangeScreenRes(800, 600, @DesktopDepth, @DesktopRefresh)
-								$AF_active = 1
-								WinActivate($hWnd)
-								Send('^f') ;hotkey to activate flash projector fullscreen
-							Else
-								$s = _ChangeScreenRes($Dkstp_w, $Dkstp_h, @DesktopDepth, @DesktopRefresh)
-								$AF_active = 0
-								WinActivate($hWnd)
-								Send('{ESC}') ;exit flash projector fullscreen
-								Sleep(100)
+							Case "ResetSize"
 								_solutionchange()
-							EndIf
-						Case Else
-					EndSwitch
-					Do
-						Sleep(200)
-					Until Not _IsPressed($savedHotkeys[$i][$cAIKey])
-				EndIf
-			Next
+							Case "43Maximize"
+								_43Maximize()
+							Case "Screenshot"
+								_captureShot($savedGeneral[$bCursorOnScreenshot][$cAIactive])
+							Case "SetAnchor"
+								$newanchor = _Metro_InputBox("Please enter the name of your anchor", 11, $savedGeneral[$sDefaultAnchor][$cAIcontent], False, True, $hWnd)
+								If Not @error Then
+									$savedGeneral[$sDefaultAnchor][$cAIcontent] = $newanchor
+								EndIf
+							Case "TPAnchor"
+								_TPAnchor($savedGeneral[$sDefaultAnchor][$cAIcontent], $chat, $savedIngame[$igCommand][$cAIKey])
+							Case "IgnorePM"
+								_IgnorePM($tell, $savedIngame[$igCommand][$cAIKey])
+							Case "ToggleFocus"
+								$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
+							Case "ActualFullscreen"
+								If $AF_active = 0 Then
+									_ChangeScreenRes(800, 600, @DesktopDepth, @DesktopRefresh)
+									$AF_active = 1
+									WinActivate($hWnd)
+									Send('^f') ;hotkey to activate flash projector fullscreen
+								Else
+									$s = _ChangeScreenRes($Dkstp_w, $Dkstp_h, @DesktopDepth, @DesktopRefresh)
+									$AF_active = 0
+									WinActivate($hWnd)
+									Send('{ESC}') ;exit flash projector fullscreen
+									Sleep(100)
+									_solutionchange()
+								EndIf
+							Case Else
+						EndSwitch
+						Do
+							Sleep(200)
+						Until Not _IsPressed($savedHotkeys[$i][$cAIKey])
+					EndIf
+				Next
 
+			EndIf
+		Else
+			_MouseTrap()
 		EndIf
-
 		Switch TrayGetMsg()
 			Case $trayForceFocus
 				$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
@@ -507,7 +547,7 @@ EndFunc   ;==>_captureShot
 
 
 
-Func end($a = 0) ;cursor reset
+Func end($a = "cursor.ani") ;cursor reset
 	_SetCursor($a, $OCR_NORMAL, 1)
 	If @DesktopWidth <> $Dkstp_w Then
 		_ChangeScreenRes($Dkstp_w, $Dkstp_h, @DesktopDepth, @DesktopRefresh)
@@ -527,22 +567,30 @@ Func _SetCursor($CursorFile, $RepCursor, $flag = 0) ;changes cursor
 	Local Const $SPI_SETCURSORS = 0x0057 ;Used in $flag 1 to restore Cursor
 	Local $temp
 	If $flag = 0 Then
-		$temp = DllCall($user32, 'int', 'LoadCursorFromFile', 'str', $CursorFile)
-		If Not @error Then
-			DllCall($user32, 'int', 'SetSystemCursor', 'int', $temp[0], 'int', $RepCursor)
-			If Not @error Then
-				DllCall($user32, 'int', 'DestroyCursor', 'int', $temp[0])
-			Else
-				Return -2
-			EndIf
+		If StringInStr($CursorFile, ".ani") <> 0 Then
+			RegWrite("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow", "REG_EXPAND_SZ", $CursorFile)
+			DllCall("user32.dll", 'int', 'SystemParametersInfo', 'int', $SPI_SETCURSORS, 'int', 0, 'int', 0, 'int', 0)
 		Else
-			Return -1
+			$temp = DllCall($user32, 'int', 'LoadCursorFromFile', 'str', $CursorFile)
+			If Not @error Then
+				DllCall($user32, 'int', 'SetSystemCursor', 'int', $temp[0], 'int', $RepCursor)
+				If Not @error Then
+					DllCall($user32, 'int', 'DestroyCursor', 'int', $temp[0])
+				Else
+					Return -2
+				EndIf
+			Else
+				Return -1
+			EndIf
 		EndIf
 	ElseIf $flag = 1 Then
-		DllCall($user32, 'int', 'SystemParametersInfo', 'int', $SPI_SETCURSORS, 'int', 0, 'int', 0, 'int', 0)
-		If @error Then
-			Return -3
+		If StringInStr($CursorFile, ".ani") <> 0 Then
+			RegWrite("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow", "REG_EXPAND_SZ", $defaultCursor)
 		EndIf
+			DllCall($user32, 'int', 'SystemParametersInfo', 'int', $SPI_SETCURSORS, 'int', 0, 'int', 0, 'int', 0)
+			If @error Then
+				Return -3
+			EndIf
 	EndIf
 EndFunc   ;==>_SetCursor
 
@@ -554,55 +602,55 @@ Func _TrayItems()
 
 	TrayCreateItem("")
 	;Options
-	Global $traySettings = TrayCreateItem("Open Settings")
-	Global $trayReloadSettings = TrayCreateItem("Reload Settings")
+	$traySettings = TrayCreateItem("Open Settings")
+	$trayReloadSettings = TrayCreateItem("Reload Settings")
 	TrayCreateItem("")
-	Global $trayCommands = TrayCreateMenu("Commands")
+	$trayCommands = TrayCreateMenu("Commands")
 
-	Global $trayMrEyeball = TrayCreateMenu("Mr. Eyeball", $trayCommands)
+	$trayMrEyeball = TrayCreateMenu("Mr. Eyeball", $trayCommands)
 
-	Global $trayMETtagcheater = TrayCreateItem("cheater <player>", $trayMrEyeball)
-	Global $trayMETtagscammer = TrayCreateItem("scammer <player>", $trayMrEyeball)
-	Global $trayMETUNtagcheater = TrayCreateItem("NO cheater <player>", $trayMrEyeball)
-	Global $trayMETUNtagscammer = TrayCreateItem("NO scammer <player>", $trayMrEyeball)
-	Global $trayMETcheckscammer = TrayCreateItem("CHECK if scammer <player>", $trayMrEyeball)
+	$trayMETtagcheater = TrayCreateItem("cheater <player>", $trayMrEyeball)
+	$trayMETtagscammer = TrayCreateItem("scammer <player>", $trayMrEyeball)
+	$trayMETUNtagcheater = TrayCreateItem("NO cheater <player>", $trayMrEyeball)
+	$trayMETUNtagscammer = TrayCreateItem("NO scammer <player>", $trayMrEyeball)
+	$trayMETcheckscammer = TrayCreateItem("CHECK if scammer <player>", $trayMrEyeball)
 	TrayCreateItem("", $trayMrEyeball)
 
-	Global $trayMEpassword = TrayCreateItem("Password", $trayMrEyeball)
-	Global $trayMEstats = TrayCreateItem("Stats", $trayMrEyeball)
-	Global $trayMElefttomax = TrayCreateItem("LeftToMax", $trayMrEyeball)
-	Global $trayMEhideme = TrayCreateItem("Hide Me", $trayMrEyeball)
+	$trayMEpassword = TrayCreateItem("Password", $trayMrEyeball)
+	$trayMEstats = TrayCreateItem("Stats", $trayMrEyeball)
+	$trayMElefttomax = TrayCreateItem("LeftToMax", $trayMrEyeball)
+	$trayMEhideme = TrayCreateItem("Hide Me", $trayMrEyeball)
 
-	Global $trayMEfriends = TrayCreateItem("Friends", $trayMrEyeball)
-	Global $trayMEserver = TrayCreateItem("Server", $trayMrEyeball)
+	$trayMEfriends = TrayCreateItem("Friends", $trayMrEyeball)
+	$trayMEserver = TrayCreateItem("Server", $trayMrEyeball)
 	TrayCreateItem("", $trayMrEyeball)
-	Global $trayMEmates = TrayCreateItem("Mates", $trayMrEyeball)
-	Global $trayMEguild = TrayCreateItem("Hide My Guild", $trayMrEyeball)
+	$trayMEmates = TrayCreateItem("Mates", $trayMrEyeball)
+	$trayMEguild = TrayCreateItem("Hide My Guild", $trayMrEyeball)
 
 	TrayCreateItem("", $trayCommands)
-	Global $trayCommandEvent = TrayCreateItem("/event", $trayCommands)
-	Global $trayCommandClasses = TrayCreateItem("/classes", $trayCommands)
-	Global $trayCommandWho = TrayCreateItem("/who", $trayCommands)
-	Global $trayCommandNexustutorial = TrayCreateItem("/nexustutorial", $trayCommands)
-	Global $trayCommandServer = TrayCreateItem("/server", $trayCommands)
+	$trayCommandEvent = TrayCreateItem("/event", $trayCommands)
+	$trayCommandClasses = TrayCreateItem("/classes", $trayCommands)
+	$trayCommandWho = TrayCreateItem("/who", $trayCommands)
+	$trayCommandNexustutorial = TrayCreateItem("/nexustutorial", $trayCommands)
+	$trayCommandServer = TrayCreateItem("/server", $trayCommands)
 
 	TrayCreateItem("", $trayCommands)
-	Global $traySewer = TrayCreateMenu("Master Rat Answers", $trayCommands)
-	Global $traySewerTime = TrayCreateItem("What time is it? ", $traySewer)
-	Global $traySewerPlace = TrayCreateItem("Where is the safest place in the world? ", $traySewer)
-	Global $traySewerNight = TrayCreateItem("What is fast, quiet and hidden by the night? ", $traySewer)
-	Global $traySewerLike = TrayCreateItem("How do you like your pizza? ", $traySewer)
-	Global $traySewerWho = TrayCreateItem("Who did this to me? ", $traySewer)
+	$traySewer = TrayCreateMenu("Master Rat Answers", $trayCommands)
+	$traySewerTime = TrayCreateItem("What time is it? ", $traySewer)
+	$traySewerPlace = TrayCreateItem("Where is the safest place in the world? ", $traySewer)
+	$traySewerNight = TrayCreateItem("What is fast, quiet and hidden by the night? ", $traySewer)
+	$traySewerLike = TrayCreateItem("How do you like your pizza? ", $traySewer)
+	$traySewerWho = TrayCreateItem("Who did this to me? ", $traySewer)
 
 	TrayCreateItem("")
 	;Misc
-	Global $traySiteRealmeye = TrayCreateItem("Visit RealmEye.com")
-	Global $traySiteReddit = TrayCreateItem("Visit /r/RotMG")
-	Global $traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
-	Global $traySiteProject = TrayCreateItem("Visit the SimpleR website")
+	$traySiteRealmeye = TrayCreateItem("Visit RealmEye.com")
+	$traySiteReddit = TrayCreateItem("Visit /r/RotMG")
+	$traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
+	$traySiteProject = TrayCreateItem("Visit the SimpleR website")
 	TrayCreateItem("")
 	;Exit
-	Global $trayExit = TrayCreateItem("Exit")
+	$trayExit = TrayCreateItem("Exit")
 
 	TraySetState(1) ; Show the tray menu.
 EndFunc   ;==>_TrayItems

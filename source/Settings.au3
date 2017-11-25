@@ -906,7 +906,7 @@ While 1
 			EndIf
 
 		Case $btnKongregateHelp
-			ShellExecute("https://www.realmeye.com/wiki/using-the-adobe-flash-projector#kongregate")
+			ShellExecute("https://github.com/GerRudi/SimpleR-RotMG/wiki/FAQ#how-to-play-with-my-kongregate-account")
 
 		Case $tgbAdditionalProgram
 			If _Metro_ToggleIsChecked($tgbAdditionalProgram) Then
