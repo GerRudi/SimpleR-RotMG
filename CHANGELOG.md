@@ -1,5 +1,10 @@
 # Changelog of SimpleR
 
+## [v1.2.0] - 2017-11-##
+### Added
+- disabled possibliity to resize window by dragging the edges
+
+
 ## [v1.1.0] - 2017-11-25
 ### Added
 - changelog
