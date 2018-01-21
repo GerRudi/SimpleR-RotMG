@@ -10,7 +10,9 @@ $pathPaths = @ScriptDir & "\data\Paths.csv"
 $pathMacros = @ScriptDir & "\data\Macros.csv"
 $pathIngame = @ScriptDir & "\data\Ingame.csv"
 $pathHotkeys = @ScriptDir & "\data\Hotkeys.csv"
+$pathRedirects = @ScriptDir & "\data\Redirects.csv"
 $pathSettings = @ScriptDir & "\Settings.exe"
+
 
 ;Array indexes
 Global const $cAIdescription = 0
@@ -18,7 +20,7 @@ Global const $cAIactive = 1
 Global const $cAIcontent = 1
 Global const $cAIKey = 2
 Global const $cAImacrotext = 3
-
+Global const $cAIRedirect = 3
 ;Settings
 ;GENERAL
 Global const $bTesting = 0
@@ -71,6 +73,11 @@ Global const $hkIgnorePM = 5
 Global const $hkToggleFocus = 6
 Global const $hkActualFullscreen = 7
 ;~  Reserved 9-17
+
+;REDIRECTS
+Global const $credirect1 = 0
+Global const $credirect2 = 1
+;~  Reserved 2 - 9
 
 ;SWF
 Global const $cSWFtesting = 1

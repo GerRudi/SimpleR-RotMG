@@ -125,10 +125,16 @@ Func main()
 	$savedMacros = _ClearKeys($savedMacros)
 	$savedHotkeys = _ClearKeys($savedHotkeys)
 	$savedIngame = _ClearKeys($savedIngame, 1)
+	$savedRedirects = GetRedirects()
+	$savedRedirects = _ClearKeys($savedRedirects)
 
 	$chat = "{" & $savedIngame[$igChat][$cAIKey] & "}"
 	$ability = "{" & $savedIngame[$igAbility][$cAIKey] & "}"
 	$tell = "{" & $savedIngame[$igTell][$cAIKey] & "}"
+
+	For $i = 0 To UBound($savedRedirects) - 1
+		$savedRedirects[$i][$cAIRedirect] = "{" & $savedRedirects[$i][$cAIRedirect] & "}"
+	Next
 
 	$SWF = _GetSWF()
 
@@ -202,6 +208,8 @@ Func main()
 				$aCoords = WinGetPos($hWnd)
 				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8)
 				;alternative: $aCoords[1] + 50 would trap the mouse ONLY to the flash content, excluding the title and menubar (has to be disabled in order to close the window)
+			Else
+				_MouseTrap()
 			EndIf
 
 			;MACROS
@@ -262,6 +270,13 @@ Func main()
 				Next
 
 			EndIf
+
+			For $i = UBound($savedRedirects, 1) - 1 To 0 Step -1
+				If _IsPressed($savedRedirects[$i][$cAIKey]) Then
+					Send($savedRedirects[$i][$cAIRedirect])
+					Sleep(100)
+				EndIf
+			Next
 		Else
 			_MouseTrap()
 		EndIf
