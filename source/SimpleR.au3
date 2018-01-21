@@ -2,11 +2,9 @@
 #AutoIt3Wrapper_Icon=..\data\Icons\SimpleR.ico
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Simple launcher to play RotMG
-#AutoIt3Wrapper_Res_Fileversion=1.0.1.0
-#AutoIt3Wrapper_Res_Fileversion_AutoIncrement=n
+#AutoIt3Wrapper_Res_Fileversion=1.2.0.0
 #AutoIt3Wrapper_Res_LegalCopyright=GerRudi
 #AutoIt3Wrapper_Res_Language=1033
-#AutoIt3Wrapper_Res_HiDpi=n
 #AutoIt3Wrapper_Run_Au3Stripper=y
 #Au3Stripper_Parameters=/so /rm /pe
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -310,9 +308,16 @@ Func main()
 				$savedMacros = _ClearKeys($savedMacros)
 				$savedHotkeys = _ClearKeys($savedHotkeys)
 				$savedIngame = _ClearKeys($savedIngame, 1)
+				$savedRedirects = GetRedirects()
+				$savedRedirects = _ClearKeys($savedRedirects)
 				$chat = "{" & $savedIngame[$igChat][$cAIKey] & "}"
 				$ability = "{" & $savedIngame[$igAbility][$cAIKey] & "}"
 				$tell = "{" & $savedIngame[$igTell][$cAIKey] & "}"
+
+				For $i = 0 To UBound($savedRedirects) - 1
+					$savedRedirects[$i][$cAIRedirect] = "{" & $savedRedirects[$i][$cAIRedirect] & "}"
+				Next
+
 				If $savedGeneral[$bCustomCursor][$cAIactive] = 1 And FileExists($savedPaths[$sCustomCursorPath][$cAIcontent]) Then
 					_SetCursor($savedPaths[$sCustomCursorPath][$cAIcontent], $OCR_NORMAL)
 				EndIf
