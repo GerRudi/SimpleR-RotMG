@@ -24,6 +24,8 @@ A convenient way to play Realm of the Mad God on Windows
 
 
 # Download
+Current version: 1.2.0 - 2018-01-21 - [Changelog](./CHANGELOG.md)
+
 See [Releases](../../releases/latest) for download
 
 If you have trouble setting it up, please check out the [Wiki](../../wiki).

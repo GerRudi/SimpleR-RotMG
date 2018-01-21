@@ -53,12 +53,14 @@ Global $savedPaths
 Global $savedMacros
 Global $savedIngame
 Global $savedHotkeys
+Global $savedRedirects
 
 Global $newGeneral
 Global $newPaths
 Global $newMacros
 Global $newIngame
 Global $newHotkeys
+Global $newRedirects
 
 #EndRegion VARIABLES
 
@@ -440,6 +442,64 @@ GUICtrlSetResizing($tgbTesting, 768 + 8)
 
 $tgbAGCLoader = _Metro_CreateToggle("Use AGCLoader instead of AssembleeGameClient", 40, 440, 600, 30)
 GUICtrlSetResizing($tgbAGCLoader, 768 + 8)
+
+; Key redirect
+$lblKeyRedirect = GUICtrlCreateLabel("Key redirects (bind ingame actions to your mouse)", 40, 490, 600, 30, $SS_LEFTNOWORDWRAP)
+GUICtrlSetResizing($lblKeyRedirect, 768 + 8)
+GUICtrlSetColor($lblKeyRedirect, $COLOR_WHITE)
+GUICtrlSetFont($lblKeyRedirect, 11.5, "", "", "Segoe UI")
+
+
+;redirect1
+$tgRedirect1 = _Metro_CreateToggle("", 40, 530, 60, 30)
+GUICtrlSetResizing($tgRedirect1, 768 + 8)
+
+$btnRedirectHotkey1 = GUICtrlCreateLabel("<KEY>", 120, 530, 100, 30, BitOR($SS_CENTER, $SS_CENTERIMAGE))
+GUICtrlSetResizing($btnRedirectHotkey1, 768 + 8)
+GUICtrlSetColor($btnRedirectHotkey1, $COLOR_WHITE)
+GUICtrlSetFont($btnRedirectHotkey1, 11.5, "", "", "Segoe UI Bold")
+GUICtrlSetBkColor($btnRedirectHotkey1, "0x1E648C")
+GUICtrlSetCursor($btnRedirectHotkey1, 0)
+
+
+$lblRedirect1 = GUICtrlCreateLabel("will press the ingame key: ", 230, 535, 170, 30, $SS_LEFTNOWORDWRAP)
+GUICtrlSetResizing($lblRedirect1, 768 + 8)
+GUICtrlSetColor($lblRedirect1, $COLOR_WHITE)
+GUICtrlSetFont($lblRedirect1, 11.5, "", "", "Segoe UI")
+
+$btnRedirectGamekey1 = GUICtrlCreateLabel("<KEY>", 420, 530, 100, 30, BitOR($SS_CENTER, $SS_CENTERIMAGE))
+GUICtrlSetResizing($btnRedirectGamekey1, 768 + 8)
+GUICtrlSetColor($btnRedirectGamekey1, $COLOR_WHITE)
+GUICtrlSetFont($btnRedirectGamekey1, 11.5, "", "", "Segoe UI Bold")
+GUICtrlSetBkColor($btnRedirectGamekey1, "0x1E648C")
+GUICtrlSetCursor($btnRedirectGamekey1, 0)
+
+
+;redirec2
+$tgRedirect2 = _Metro_CreateToggle("", 40, 570, 60, 30)
+GUICtrlSetResizing($tgRedirect2, 768 + 8)
+
+$btnRedirectHotkey2 = GUICtrlCreateLabel("<KEY>", 120, 570, 100, 30, BitOR($SS_CENTER, $SS_CENTERIMAGE))
+GUICtrlSetResizing($btnRedirectHotkey2, 768 + 8)
+GUICtrlSetColor($btnRedirectHotkey2, $COLOR_WHITE)
+GUICtrlSetFont($btnRedirectHotkey2, 11.5, "", "", "Segoe UI Bold")
+GUICtrlSetBkColor($btnRedirectHotkey2, "0x1E648C")
+GUICtrlSetCursor($btnRedirectHotkey2, 0)
+
+
+$lblRedirect2 = GUICtrlCreateLabel("will press the ingame key: ", 230, 575, 170, 30, $SS_LEFTNOWORDWRAP)
+GUICtrlSetResizing($lblRedirect2, 768 + 8)
+GUICtrlSetColor($lblRedirect2, $COLOR_WHITE)
+GUICtrlSetFont($lblRedirect2, 11.5, "", "", "Segoe UI")
+
+$btnRedirectGamekey2 = GUICtrlCreateLabel("<KEY>", 420, 570, 100, 30, BitOR($SS_CENTER, $SS_CENTERIMAGE))
+GUICtrlSetResizing($btnRedirectGamekey2, 768 + 8)
+GUICtrlSetColor($btnRedirectGamekey2, $COLOR_WHITE)
+GUICtrlSetFont($btnRedirectGamekey2, 11.5, "", "", "Segoe UI Bold")
+GUICtrlSetBkColor($btnRedirectGamekey2, "0x1E648C")
+GUICtrlSetCursor($btnRedirectGamekey2, 0)
+
+
 
 #EndRegion Others
 
@@ -952,6 +1012,86 @@ While 1
 			EndIf
 			#EndRegion Others
 
+		;Redirect 1
+
+			Case $tgRedirect1
+			If _Metro_ToggleIsChecked($tgRedirect1) Then
+				_Metro_ToggleUnCheck($tgRedirect1)
+				GUICtrlSetState($btnRedirectHotkey1, 128)
+				GUICtrlSetBkColor($btnRedirectHotkey1, "0x123c54")
+				GUICtrlSetState($btnRedirectGamekey1, 128)
+				GUICtrlSetBkColor($btnRedirectGamekey1, "0x123c54")
+			Else
+				_Metro_ToggleCheck($tgRedirect1)
+				GUICtrlSetState($btnRedirectHotkey1, 64)
+				GUICtrlSetBkColor($btnRedirectHotkey1, "0x1E648C")
+				GUICtrlSetState($btnRedirectGamekey1, 64)
+				GUICtrlSetBkColor($btnRedirectGamekey1, "0x1E648C")
+			EndIf
+
+		Case $btnRedirectHotkey1
+			$tmp = GUICtrlRead($btnRedirectHotkey1)
+			GUICtrlSetData($btnRedirectHotkey1, "PRESS KEY")
+			_GUIDisable($Form1, 0, 30)
+			$result = GetKeyInput()
+			If Not @error Then
+				GUICtrlSetData($btnRedirectHotkey1, $result[2])
+			Else
+				GUICtrlSetData($btnRedirectHotkey1, $tmp)
+			EndIf
+			_GUIDisable($Form1, 0, 30)
+
+		Case $btnRedirectGamekey1
+			$tmp = GUICtrlRead($btnRedirectGamekey1)
+			GUICtrlSetData($btnRedirectGamekey1, "PRESS KEY")
+			_GUIDisable($Form1, 0, 30)
+			$result = GetKeyInput()
+			If Not @error Then
+				GUICtrlSetData($btnRedirectGamekey1, $result[2])
+			Else
+				GUICtrlSetData($btnRedirectGamekey1, $tmp)
+			EndIf
+			_GUIDisable($Form1, 0, 30)
+
+		;Redirect 2
+			Case $tgRedirect2
+			If _Metro_ToggleIsChecked($tgRedirect2) Then
+				_Metro_ToggleUnCheck($tgRedirect2)
+				GUICtrlSetState($btnRedirectHotkey2, 128)
+				GUICtrlSetBkColor($btnRedirectHotkey2, "0x123c54")
+				GUICtrlSetState($btnRedirectGamekey2, 128)
+				GUICtrlSetBkColor($btnRedirectGamekey2, "0x123c54")
+			Else
+				_Metro_ToggleCheck($tgRedirect2)
+				GUICtrlSetState($btnRedirectHotkey2, 64)
+				GUICtrlSetBkColor($btnRedirectHotkey2, "0x1E648C")
+				GUICtrlSetState($btnRedirectGamekey2, 64)
+				GUICtrlSetBkColor($btnRedirectGamekey2, "0x1E648C")
+			EndIf
+
+		Case $btnRedirectHotkey2
+			$tmp = GUICtrlRead($btnRedirectHotkey2)
+			GUICtrlSetData($btnRedirectHotkey2, "PRESS KEY")
+			_GUIDisable($Form1, 0, 30)
+			$result = GetKeyInput()
+			If Not @error Then
+				GUICtrlSetData($btnRedirectHotkey2, $result[2])
+			Else
+				GUICtrlSetData($btnRedirectHotkey2, $tmp)
+			EndIf
+			_GUIDisable($Form1, 0, 30)
+
+		Case $btnRedirectGamekey2
+			$tmp = GUICtrlRead($btnRedirectGamekey2)
+			GUICtrlSetData($btnRedirectGamekey2, "PRESS KEY")
+			_GUIDisable($Form1, 0, 30)
+			$result = GetKeyInput()
+			If Not @error Then
+				GUICtrlSetData($btnRedirectGamekey2, $result[2])
+			Else
+				GUICtrlSetData($btnRedirectGamekey2, $tmp)
+			EndIf
+			_GUIDisable($Form1, 0, 30)
 
 	EndSwitch
 WEnd
@@ -963,12 +1103,14 @@ Func _InitializeSettings()
 	$savedMacros = GetMacros()
 	$savedIngame = GetIngame()
 	$savedHotkeys = GetHotkeys()
+	$savedRedirects = GetRedirects()
 
 	$newGeneral = $savedGeneral
 	$newPaths = $savedPaths
 	$newMacros = $savedMacros
 	$newIngame = $savedIngame
 	$newHotkeys = $savedHotkeys
+	$newRedirects = $savedRedirects
 
 	_SetGeneral()
 	_SetOthers()
@@ -1057,6 +1199,40 @@ Func _SetOthers()
 		_Metro_ToggleUnCheck($tgbAGCLoader)
 	EndIf
 
+
+	;Redirect 1
+	If $savedRedirects[$credirect1][$cAIactive] = 1 Then
+		_Metro_ToggleCheck($tgRedirect1)
+		GUICtrlSetState($btnRedirectGamekey1, 64)
+		GUICtrlSetBkColor($btnRedirectGamekey1, "0x1E648C")
+		GUICtrlSetState($btnRedirectHotkey1, 64)
+		GUICtrlSetBkColor($btnRedirectHotkey1, "0x1E648C")
+	Else
+		_Metro_ToggleUnCheck($tgRedirect1)
+		GUICtrlSetState($btnRedirectGamekey1, 128)
+		GUICtrlSetBkColor($btnRedirectGamekey1, "0x123c54")
+		GUICtrlSetState($btnRedirectHotkey1, 128)
+		GUICtrlSetBkColor($btnRedirectHotkey1, "0x123c54")
+	EndIf
+	GUICtrlSetData($btnRedirectGamekey1, $savedRedirects[$credirect1][$cAIRedirect])
+	GUICtrlSetData($btnRedirectHotkey1, $savedRedirects[$credirect1][$cAIKey])
+
+	;Redirect 2
+	If $savedRedirects[$credirect2][$cAIactive] = 1 Then
+		_Metro_ToggleCheck($tgRedirect2)
+		GUICtrlSetState($btnRedirectGamekey2, 64)
+		GUICtrlSetBkColor($btnRedirectGamekey2, "0x1E648C")
+		GUICtrlSetState($btnRedirectHotkey2, 64)
+		GUICtrlSetBkColor($btnRedirectHotkey2, "0x1E648C")
+	Else
+		_Metro_ToggleUnCheck($tgRedirect2)
+		GUICtrlSetState($btnRedirectGamekey2, 128)
+		GUICtrlSetBkColor($btnRedirectGamekey2, "0x123c54")
+		GUICtrlSetState($btnRedirectHotkey2, 128)
+		GUICtrlSetBkColor($btnRedirectHotkey2, "0x123c54")
+	EndIf
+	GUICtrlSetData($btnRedirectGamekey2, $savedRedirects[$credirect2][$cAIRedirect])
+	GUICtrlSetData($btnRedirectHotkey2, $savedRedirects[$credirect2][$cAIKey])
 EndFunc   ;==>_SetOthers
 
 
@@ -1311,6 +1487,11 @@ Func _HideAll()
 	GUICtrlSetState($lblIngame3, 32)
 	GUICtrlSetState($lblIngame4, 32)
 
+
+
+
+
+
 	GUICtrlSetState($tgbKongregate, 32)
 	GUICtrlSetState($lblsKongregateParameters, 32)
 	GUICtrlSetState($inputsKongregateParameters, 32)
@@ -1324,6 +1505,18 @@ Func _HideAll()
 	GUICtrlSetState($lblsFlashFile, 32)
 	GUICtrlSetState($tgbTesting, 32)
 	GUICtrlSetState($tgbAGCLoader, 32)
+
+	GUICtrlSetState($lblKeyRedirect , 32)
+	GUICtrlSetState($tgRedirect1  , 32)
+	GUICtrlSetState($btnRedirectHotkey1  , 32)
+	GUICtrlSetState($lblRedirect1  , 32)
+	GUICtrlSetState($btnRedirectGamekey1  , 32)
+
+	GUICtrlSetState($tgRedirect2  , 32)
+	GUICtrlSetState($btnRedirectHotkey2  , 32)
+	GUICtrlSetState($lblRedirect2  , 32)
+	GUICtrlSetState($btnRedirectGamekey2  , 32)
+
 
 
 	GUICtrlSetState($ESCinfo, 32)
@@ -1422,6 +1615,15 @@ Func _ShowOthers()
 	GUICtrlSetState($lblsFlashFile, 16)
 	GUICtrlSetState($tgbTesting, 16)
 	GUICtrlSetState($tgbAGCLoader, 16)
+	GUICtrlSetState($lblKeyRedirect , 16)
+	GUICtrlSetState($tgRedirect1  , 16)
+	GUICtrlSetState($btnRedirectHotkey1  , 16)
+	GUICtrlSetState($lblRedirect1  , 16)
+	GUICtrlSetState($btnRedirectGamekey1  , 16)
+	GUICtrlSetState($tgRedirect2  , 16)
+	GUICtrlSetState($btnRedirectHotkey2  , 16)
+	GUICtrlSetState($lblRedirect2  , 16)
+	GUICtrlSetState($btnRedirectGamekey2  , 16)
 EndFunc   ;==>_ShowOthers
 
 
@@ -1581,7 +1783,32 @@ Func _ReadGUI()
 		$newGeneral[$bKongregate][$cAIactive] = 0
 	EndIf
 
-	$newGeneral[$sKongregateParameters][$cAIcontent] = GUICtrlRead($inputsKongregateParameters)
+
+	$kgparams=GUICtrlRead($inputsKongregateParameters)
+	If StringInStr($kgparams,"DO_NOT_SHARE_THIS_LINK") >0 Then
+		Local $finalParameters="?"
+		Local $requiredParameters[]=["kongregate_username", "kongregate_user_id", "kongregate_game_auth_token","kongregate_api_path"]
+		Local $firstParameter = True
+		Local $res=StringSplit($kgparams,"&")
+		For $param in $res
+			For $i =0 To UBound($requiredParameters)-1 Step 1
+				IF StringInStr($param,$requiredParameters[$i])>0 Then
+					IF Not $firstParameter Then
+						$finalParameters=$finalParameters&"&" &$param
+					Else
+						$finalParameters=$finalParameters &$param
+						$firstParameter = False
+					Endif
+
+				EndIf
+			Next
+		Next
+		$newGeneral[$sKongregateParameters][$cAIcontent] = $finalParameters
+	Else
+		$newGeneral[$sKongregateParameters][$cAIcontent] = GUICtrlRead($inputsKongregateParameters)
+	EndIf
+
+
 
 	If _Metro_ToggleIsChecked($tgbAdditionalProgram) Then
 		$newGeneral[$bLaunchAdditionalProgram][$cAIactive] = 1
@@ -1606,6 +1833,23 @@ Func _ReadGUI()
 		$newGeneral[$bAGCLoader][$cAIactive] = 0
 	EndIf
 
+
+	If _Metro_ToggleIsChecked($tgRedirect1) Then
+		$newRedirects[$credirect1][$cAIactive] = 1
+	Else
+		$newRedirects[$credirect1][$cAIactive] = 0
+	EndIf
+	$newRedirects[$credirect1][$cAIKey] = GUICtrlRead($btnRedirectHotkey1)
+	$newRedirects[$credirect1][$cAIRedirect] = GUICtrlRead($btnRedirectGamekey1)
+
+	If _Metro_ToggleIsChecked($tgRedirect2) Then
+		$newRedirects[$credirect2][$cAIactive] = 1
+	Else
+		$newRedirects[$credirect2][$cAIactive] = 0
+	EndIf
+	$newRedirects[$credirect2][$cAIKey] = GUICtrlRead($btnRedirectHotkey2)
+	$newRedirects[$credirect2][$cAIRedirect] = GUICtrlRead($btnRedirectGamekey2)
+
 	#EndRegion Others
 
 	Local $differ = 0
@@ -1614,6 +1858,7 @@ Func _ReadGUI()
 	$differ += _Compare2DArrays($savedMacros, $newMacros)
 	$differ += _Compare2DArrays($savedIngame, $newIngame)
 	$differ += _Compare2DArrays($savedHotkeys, $newHotkeys)
+	$differ += _Compare2DArrays($savedRedirects, $newRedirects)
 	Return $differ
 EndFunc   ;==>_ReadGUI
 
@@ -1712,6 +1957,7 @@ Func _SaveExit($skipCheck = 0)
 	_SaveToCSV($pathMacros, $newMacros)
 	_SaveToCSV($pathIngame, $newIngame)
 	_SaveToCSV($pathHotkeys, $newHotkeys)
+	_SaveToCSV($pathRedirects, $newRedirects)
 	_Metro_GUIDelete($Form1) ;Delete GUI/release resources, make sure you use this when working with multiple GUIs!
 	Exit
 
@@ -1730,21 +1976,23 @@ EndFunc   ;==>_SaveExit
 Func GetKeyInput($sTime = 5000, $sBack = 0)
 	$sTimer = TimerInit()
 	$sDll = DllOpen("user32.dll")
-	Local $sList[][3] = [[05, "none", "1Mouse"], [06, "none", "2Mouse"], [04, "none", "MiddleMouse"], [08, "{BACKSPACE}", "Backspace"], [09, "{TAB}", "Tab"], [0 & "D", "{ENTER}", "Enter"], _
+	Local $sList[][3] = [[05, "none", "X1Mouse"], [06, "none", "X2Mouse"], [04, "none", "MiddleMouse"], [08, "{BACKSPACE}", "Backspace"], [09, "{TAB}", "Tab"], [0 & "D", "{ENTER}", "Enter"], _
 			["A" & 0, "{LSHIFT}", "Left Shift"], ["A" & 1, "{RSHIFT}", "Right Shift"], _
-			[13, "{Pause}", "Pause"], [14, "{CAPSLOCK}", "Caps Lock"], [20, "{SPACE}", "Spacebar"], [21, "{PGUP}", "Page Up"], [22, "{PGDN}", "Page Down"], [23, "{End}", "End"], _
-			[24, "{Home}", "Home"], [25, "{Left}", "Left Arrow"], [26, "{UP}", "Up Arrow"], [27, "{Right}", "Right Arrow"], [28, "{Down}", "Down Arrow"], [12, "{ALT}", "Alt"], [5 & "C", "{RWIN}", "Right Windows"], _
-			[2 & "C", "{PRINTSCREEN}", "Print Screen"], [2 & "D", "{INS}", "Ins"], [2 & "E", "{DELETE}", "Del"], [30, 0, "0"], [31, 1, "1"], [32, 2, "2"], _
+			[13, "{Pause}", "Pause"], [14, "{CAPSLOCK}", "CAPSLOCK"], [20, "{SPACE}", "SPACE"], [21, "{PGUP}", "PGUP"], [22, "{PGDN}", "PGDN"], [23, "{End}", "End"], _
+			[24, "{Home}", "Home"], [25, "{Left}", "Left"], [26, "{UP}", "UP"], [27, "{Right}", "Right"], [28, "{Down}", "Down"], [12, "{ALT}", "Alt"], [5 & "C", "{RWIN}", "RWIN"], _
+			[2 & "C", "{PRINTSCREEN}", "PRINTSCREEN"], [2 & "D", "{INS}", "Ins"], [2 & "E", "{DELETE}", "DELETE"], [30, 0, "0"], [31, 1, "1"], [32, 2, "2"], _
 			[33, 3, "3"], [34, 4, "4"], [35, 5, "5"], [36, 6, "6"], [37, 7, "7"], [38, 8, "8"], [39, 9, "9"], _
 			[41, "a", "A"], [42, "b", "B"], [43, "c", "C"], [44, "d", "D"], [45, "e", "E"], [46, "f", "F"], [47, "g", "G"], _
 			[48, "h", "H"], [49, "i", "I"], [4 & "A", "j", "J"], [4 & "B", "k", "K"], [4 & "C", "l", "L"], [4 & "D", "m", "M"], [4 & "E", "n", "N"], _
 			[4 & "F", "o", "O"], [50, "p", "P"], [51, "q", "Q"], [52, "r", "R"], [53, "s", "S"], [54, "t", "T"], [55, "u", "U"], _
-			[56, "v", "V"], [57, "w", "W"], [58, "x", "X"], [59, "y", "Y"], [5 & "A", "z", "Z"], [60, "{NUMPAD0}", "Num 0"], [61, "{NUMPAD1}", "Num 1"], _
-			[62, "{NUMPAD2}", "Num 2"], [63, "{NUMPAD3}", "Num 3"], [64, "{NUMPAD4}", "Num 4"], [65, "{NUMPAD5}", "Num 5"], [66, "{NUMPAD6}", "Num 6"], [67, "{NUMPAD7}", "Num 7"], [68, "{NUMPAD8}", "Num 8"], _
-			[69, "{NUMPAD9}", "Num 9"], [6 & "A", "{NUMPADMULT}", "Multiply"], [6 & "B", "{NUMPADADD}", "Add"], [6 & "C", "{NUMPADENTER}", "Separator"], [6 & "D", "{NUMPADSUB}", "Subtract"], [6 & "E", "{NUMPADDOT}", "Decimal"], [6 & "F", "{NUMPADDIV}", "Divide"], _
+			[56, "v", "V"], [57, "w", "W"], [58, "x", "X"], [59, "y", "Y"], [5 & "A", "z", "Z"], [60, "{NUMPAD0}", "Numpad0"], [61, "{NUMPAD1}", "Numpad1"], _
+			[62, "{NUMPAD2}", "Numpad2"], [63, "{NUMPAD3}", "Numpad3"], [64, "{NUMPAD4}", "Numpad4"], [65, "{NUMPAD5}", "Numpad5"], [66, "{NUMPAD6}", "Numpad6"], [67, "{NUMPAD7}", "Numpad7"], [68, "{NUMPAD8}", "Numpad8"], _
+			[69, "{NUMPAD9}", "Numpad9"], [6 & "A", "{NUMPADMULT}", "NUMPADMULT"], [6 & "B", "{NUMPADADD}", "NUMPADADD"], [6 & "C", "{NUMPADENTER}", "NUMPADENTER"], [6 & "D", "{NUMPADSUB}", "NUMPADSUB"], [6 & "E", "{NUMPADDOT}", "NUMPADDOT"], [6 & "F", "{NUMPADDIV}", "NUMPADDIV"], _
 			[70, "{F1}", "F1"], [71, "{F2}", "F2"], [72, "{F3}", "F3"], [73, "{F4}", "F4"], [74, "{F5}", "F5"], [75, "{F6}", "F6"], [76, "{F8}", "F7"], _
-			[77, "{F8}", "F8"], [78, "{F9}", "F9"], [79, "{F10}", "F10"], [7 & "A", "{F11}", "F11"], [7 & "B", "{F12}", "F12"], [90, "{NUMLOCK}", "Num Lock"], [91, "{SCROLLLOCK}", "Scroll Lock"], _
-			["A" & 2, "{LCTRL}", "Left CTRL"], ["A" & 3, "{RCTRL}", "Right CTRL"], ["A" & 4, "{LALT}", "Left Menu"], ["A" & 5, "{RALT}", "Right Menu"], [5 & "B", "{LWIN}", "Left Windows"]]
+			[77, "{F8}", "F8"], [78, "{F9}", "F9"], [79, "{F10}", "F10"], [7 & "A", "{F11}", "F11"], [7 & "B", "{F12}", "F12"], [90, "{NUMLOCK}", "NUMLOCK"], [91, "{SCROLLLOCK}", "SCROLLLOCK"], _
+			["A" & 2, "{LCTRL}", "LCTRL"], ["A" & 3, "{RCTRL}", "RCTRL"], ["A" & 4, "{LALT}", "LALT"], ["A" & 5, "{RALT}", "RALT"], [5 & "B", "{LWIN}", "LWIN"]]
+
+
 	GUICtrlSetState($ESCinfo, 16)
 	Do
 		For $i = 0 To UBound($sList) - 1 Step 1
