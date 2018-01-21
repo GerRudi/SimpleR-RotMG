@@ -2,11 +2,9 @@
 #AutoIt3Wrapper_Icon=..\data\Icons\SimpleR.ico
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Simple launcher to play RotMG
-#AutoIt3Wrapper_Res_Fileversion=1.0.1.0
-#AutoIt3Wrapper_Res_Fileversion_AutoIncrement=n
+#AutoIt3Wrapper_Res_Fileversion=1.2.0.0
 #AutoIt3Wrapper_Res_LegalCopyright=GerRudi
 #AutoIt3Wrapper_Res_Language=1033
-#AutoIt3Wrapper_Res_HiDpi=n
 #AutoIt3Wrapper_Run_Au3Stripper=y
 #Au3Stripper_Parameters=/so /rm /pe
 #EndRegion ;**** Directives created by AutoIt3Wrapper_GUI ****
@@ -38,6 +36,8 @@ Opt("TrayMenuMode", 3) ; The default tray menu items will not be shown and items
 Opt("TrayAutoPause", 0) ; no auto pause for tray
 TraySetIcon(@ScriptFullPath, 0)
 
+HotKeySet("^q","_Dummy")
+HotKeySet("^w","_Dummy")
 
 ; ########################################## VARIABLES ################################################
 Global $defaultCursor = RegRead("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow")
@@ -47,13 +47,15 @@ Global $AF_compatible
 Global $AF_active = 0
 Global $Dkstp_w = @DesktopWidth
 Global $Dkstp_h = @DesktopHeight
+Global $highMem= False
+
 If IsArray($t) Then
 	$AF_compatible = 1
 Else
 	$AF_compatible = 0
 EndIf
 
-
+Global $tmr
 Global $trayForceFocus
 Global $traySettings
 Global $trayReloadSettings
@@ -85,8 +87,14 @@ Global $traySewerLike
 Global $traySewerWho
 Global $traySiteRealmeye
 Global $traySiteReddit
-Global $traySitePfiffel
 Global $traySiteProject
+
+Global $trayPfiffel
+Global $trayPfiffelWebsite
+Global $trayPfiffelDPS
+Global $trayPfiffelPet
+Global $trayPfiffelPet
+Global $trayPfiffelDye
 Global $trayExit
 
 ; ########################################## FUNCTION CALLS ###########################################
@@ -115,10 +123,16 @@ Func main()
 	$savedMacros = _ClearKeys($savedMacros)
 	$savedHotkeys = _ClearKeys($savedHotkeys)
 	$savedIngame = _ClearKeys($savedIngame, 1)
+	$savedRedirects = GetRedirects()
+	$savedRedirects = _ClearKeys($savedRedirects)
 
 	$chat = "{" & $savedIngame[$igChat][$cAIKey] & "}"
 	$ability = "{" & $savedIngame[$igAbility][$cAIKey] & "}"
 	$tell = "{" & $savedIngame[$igTell][$cAIKey] & "}"
+
+	For $i = 0 To UBound($savedRedirects) - 1
+		$savedRedirects[$i][$cAIRedirect] = "{" & $savedRedirects[$i][$cAIRedirect] & "}"
+	Next
 
 	$SWF = _GetSWF()
 
@@ -175,6 +189,8 @@ Func main()
 	Local $pid = WinGetProcess($WindowClass)
 	ProcessSetPriority($pid, 4)
 
+
+	$tmr=TimerInit()
 	If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then
 		TrayTip("Warning", "Force Focus is activated! Use the hotkey to disable or press the Windows Key get out of the window! " & "You can deactivate it permanently in the Settings. ", 5, 2)
 	EndIf
@@ -190,6 +206,8 @@ Func main()
 				$aCoords = WinGetPos($hWnd)
 				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8)
 				;alternative: $aCoords[1] + 50 would trap the mouse ONLY to the flash content, excluding the title and menubar (has to be disabled in order to close the window)
+			Else
+				_MouseTrap()
 			EndIf
 
 			;MACROS
@@ -250,9 +268,31 @@ Func main()
 				Next
 
 			EndIf
+
+			For $i = UBound($savedRedirects, 1) - 1 To 0 Step -1
+				If _IsPressed($savedRedirects[$i][$cAIKey]) Then
+					Send($savedRedirects[$i][$cAIRedirect])
+					Sleep(100)
+				EndIf
+			Next
 		Else
 			_MouseTrap()
 		EndIf
+
+
+		If Not $highMem Then
+			If TimerDiff($tmr) > 60000 Then
+				Global $sts= ProcessGetStats($pid)
+				$memory = $sts[0]/1024/1024
+				If $memory > 1280 Then
+					TrayTip("Please restart the game soon","RotMG is using a lot of memory, please restart your game soon to avoid any crashes!",7,2)
+					$highMem=True
+				EndIf
+					$tmr = TimerInit()
+			EndIf
+		EndIf
+
+
 		Switch TrayGetMsg()
 			Case $trayForceFocus
 				$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
@@ -268,9 +308,16 @@ Func main()
 				$savedMacros = _ClearKeys($savedMacros)
 				$savedHotkeys = _ClearKeys($savedHotkeys)
 				$savedIngame = _ClearKeys($savedIngame, 1)
+				$savedRedirects = GetRedirects()
+				$savedRedirects = _ClearKeys($savedRedirects)
 				$chat = "{" & $savedIngame[$igChat][$cAIKey] & "}"
 				$ability = "{" & $savedIngame[$igAbility][$cAIKey] & "}"
 				$tell = "{" & $savedIngame[$igTell][$cAIKey] & "}"
+
+				For $i = 0 To UBound($savedRedirects) - 1
+					$savedRedirects[$i][$cAIRedirect] = "{" & $savedRedirects[$i][$cAIRedirect] & "}"
+				Next
+
 				If $savedGeneral[$bCustomCursor][$cAIactive] = 1 And FileExists($savedPaths[$sCustomCursorPath][$cAIcontent]) Then
 					_SetCursor($savedPaths[$sCustomCursorPath][$cAIcontent], $OCR_NORMAL)
 				EndIf
@@ -358,12 +405,21 @@ Func main()
 				_SendMacro($savedIngame[$igCommand][$cAIKey] & "server", $chat)
 ;~ 		END OF COMMANDS
 
+;			PFIFFEL
+			Case $trayPfiffelWebsite
+				ShellExecute("http://pfiffel.com/")
+			Case $trayPfiffelDPS
+				Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & "http://pfiffel.com/dps/DPSCalculator.swf")
+			Case $trayPfiffelPet
+				Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & "http://www.pfiffel.com/pets/petviewer.swf")
+			Case $trayPfiffelDye
+				ShellExecute("http://www.pfiffel.com/dye/")
+;		END OF PFIFFEL
+
 			Case $traySiteRealmeye ; WEBSITE ENTRY -
 				ShellExecute("https://realmeye.com/")
 			Case $traySiteReddit ; WEBSITE ENTRY -
 				ShellExecute("https://reddit.com/r/RotMG")
-			Case $traySitePfiffel ; WEBSITE ENTRY -
-				ShellExecute("http://pfiffel.com/")
 			Case $traySiteProject ; WEBSITE ENTRY -
 				ShellExecute("https://github.com/GerRudi/SimpleR-RotMG")
 			Case $trayExit ; EXIT ENTRY - closes game, client & restores cursor
@@ -529,17 +585,16 @@ Func _captureShot($showCursor = 1)
 		DirCreate(@ScriptDir & "\Screenshots\")
 	EndIf
 
-
 	_DateTimeSplit($cDate, $newDateOnly, $newTimeOnly)
-	Local $filename = @ScriptDir & "\Screenshots\RotMG " & $newDateOnly[3] & "-" & $newDateOnly[2] & "-" & $newDateOnly[1] & " " & $newTimeOnly[1] & "-" & $newTimeOnly[2] & "-" & $newTimeOnly[3] & ".jpg"
+	Local $filename = @ScriptDir & "\Screenshots\RotMG " & $newDateOnly[3] & "-" & $newDateOnly[2] & "-" & $newDateOnly[1] & " " & $newTimeOnly[1] & "-" & $newTimeOnly[2] & "-" & $newTimeOnly[3] & ".png"
 	If $showCursor = 1 Then
-		_ScreenCapture_CaptureWnd($filename, $hWnd)
+		$bmp = _ScreenCapture_CaptureWnd("", $hWnd)
 		Sleep(50)
 	Else
-		_ScreenCapture_CaptureWnd($filename, $hWnd, 0, 0, -1, -1, False)
+		$bmp = _ScreenCapture_CaptureWnd("", $hWnd, 0, 0, -1, -1, False)
 		Sleep(50)
 	EndIf
-
+	_ScreenCapture_SaveImage ( $filename, $bmp)
 	TrayTip("Screenshot saved", "Screenshot saved to: " & $filename, 2, 16)
 
 	Return 0
@@ -643,10 +698,17 @@ Func _TrayItems()
 	$traySewerWho = TrayCreateItem("Who did this to me? ", $traySewer)
 
 	TrayCreateItem("")
+	$trayPfiffel = TrayCreateMenu("Pfiffel.com Tools")
+	$trayPfiffelWebsite = TrayCreateItem("Visit Pfiffel.com", $trayPfiffel)
+	$trayPfiffelDPS = TrayCreateItem("Open DPS Calculator", $trayPfiffel)
+	$trayPfiffelPet = TrayCreateItem("Open Pet Simulator", $trayPfiffel)
+	$trayPfiffelDye = TrayCreateItem("Open Dye Tool", $trayPfiffel)
+
+	TrayCreateItem("")
 	;Misc
 	$traySiteRealmeye = TrayCreateItem("Visit RealmEye.com")
 	$traySiteReddit = TrayCreateItem("Visit /r/RotMG")
-	$traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
+	;$traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
 	$traySiteProject = TrayCreateItem("Visit the SimpleR website")
 	TrayCreateItem("")
 	;Exit
@@ -691,3 +753,8 @@ Func _GetSWF()
 
 	Return $SWF
 EndFunc   ;==>_GetSWF
+
+
+Func _Dummy()
+
+EndFunc

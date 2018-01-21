@@ -81,7 +81,19 @@ Func GetHotkeys($uselocal = 1)
 	Return $array
 EndFunc   ;==>GetHotkeys
 
+Func GetRedirects($uselocal = 1)
+	Local $array
+	Local $arrayDefault = DefaultRedirects()
 
+	If FileExists($pathRedirects) And $uselocal = 1 Then
+		$array = _LoadFromCSV2D($pathRedirects)
+		$array = _UpdateArray($array, $arrayDefault, $pathRedirects)
+	Else
+		$array=$arrayDefault
+		_SaveToCSV($pathRedirects, $arrayDefault)
+	EndIf
+	Return $array
+EndFunc   ;==>GetHotkeys
 
 #Region DefaultSettings
 Func DefaultGeneral()
@@ -174,7 +186,7 @@ EndFunc   ;==>DefaultMacros
 Func DefaultIngame()
 	Local $SettingsIngame[][] = [ _
 			["Chat", "1", "ENTER"], _
-			["Ability", "1", "SPACEBAR"], _
+			["Ability", "1", "SPACE"], _
 			["Command", "1", "/"], _
 			["Tell", "1", "TAB"], _
 			["reserved", "0", "Key"], _
@@ -193,11 +205,11 @@ Func DefaultHotkeys()
 	Local $SettingsHotkeys[][] = [ _
 			["ResetSize", "1", "F6"], _
 			["43Maximize", "1", "F7"], _
-			["Screenshot", "1", "Print Screen"], _
+			["Screenshot", "1", "PRINTSCREEN"], _
 			["SetAnchor", "1", "F8"], _
 			["TPAnchor", "1", "F9"], _
 			["IgnorePM", "1", "F11"], _
-			["ToggleFocus", "0", "Num 9"], _
+			["ToggleFocus", "0", "Numpad9"], _
 			["ActualFullscreen", "0", "F12"], _
 			["HotkeyR", "0", "Key"], _
 			["HotkeyR", "0", "Key"], _
@@ -209,6 +221,22 @@ Func DefaultHotkeys()
 			["HotkeyR", "0", "Key"], _
 			["HotkeyR", "0", "Key"]]
 	Return $SettingsHotkeys
+EndFunc   ;==>DefaultHotkeys
+
+
+Func DefaultRedirects()
+	Local $SettingsRedirects[][] = [ _
+			["Redirect1", "0", "X2Mouse","0"], _
+			["Redirect2", "0", "X1Mouse", "F5"], _
+			["RedirectR", "0", "Mousekey", "Key"], _
+			["RedirectR", "0", "Mousekey", "Key"], _
+			["RedirectR", "0", "Mousekey", "Key"], _
+			["RedirectR", "0", "Mousekey", "Key"], _
+			["RedirectR", "0", "Mousekey", "Key"], _
+			["RedirectR", "0", "Mousekey", "Key"], _
+			["RedirectR", "0", "Mousekey", "Key"], _
+			["RedirectR", "0", "Mousekey", "Key"]]
+	Return $SettingsRedirects
 EndFunc   ;==>DefaultHotkeys
 
 
