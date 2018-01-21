@@ -89,8 +89,14 @@ Global $traySewerLike
 Global $traySewerWho
 Global $traySiteRealmeye
 Global $traySiteReddit
-Global $traySitePfiffel
 Global $traySiteProject
+
+Global $trayPfiffel
+Global $trayPfiffelWebsite
+Global $trayPfiffelDPS
+Global $trayPfiffelPet
+Global $trayPfiffelPet
+Global $trayPfiffelDye
 Global $trayExit
 
 ; ########################################## FUNCTION CALLS ###########################################
@@ -379,12 +385,21 @@ Func main()
 				_SendMacro($savedIngame[$igCommand][$cAIKey] & "server", $chat)
 ;~ 		END OF COMMANDS
 
+;			PFIFFEL
+			Case $trayPfiffelWebsite
+				ShellExecute("http://pfiffel.com/")
+			Case $trayPfiffelDPS
+				Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & "http://pfiffel.com/dps/DPSCalculator.swf")
+			Case $trayPfiffelPet
+				Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & "http://www.pfiffel.com/pets/petviewer.swf")
+			Case $trayPfiffelDye
+				ShellExecute("http://www.pfiffel.com/dye/")
+;		END OF PFIFFEL
+
 			Case $traySiteRealmeye ; WEBSITE ENTRY -
 				ShellExecute("https://realmeye.com/")
 			Case $traySiteReddit ; WEBSITE ENTRY -
 				ShellExecute("https://reddit.com/r/RotMG")
-			Case $traySitePfiffel ; WEBSITE ENTRY -
-				ShellExecute("http://pfiffel.com/")
 			Case $traySiteProject ; WEBSITE ENTRY -
 				ShellExecute("https://github.com/GerRudi/SimpleR-RotMG")
 			Case $trayExit ; EXIT ENTRY - closes game, client & restores cursor
@@ -550,17 +565,16 @@ Func _captureShot($showCursor = 1)
 		DirCreate(@ScriptDir & "\Screenshots\")
 	EndIf
 
-
 	_DateTimeSplit($cDate, $newDateOnly, $newTimeOnly)
-	Local $filename = @ScriptDir & "\Screenshots\RotMG " & $newDateOnly[3] & "-" & $newDateOnly[2] & "-" & $newDateOnly[1] & " " & $newTimeOnly[1] & "-" & $newTimeOnly[2] & "-" & $newTimeOnly[3] & ".jpg"
+	Local $filename = @ScriptDir & "\Screenshots\RotMG " & $newDateOnly[3] & "-" & $newDateOnly[2] & "-" & $newDateOnly[1] & " " & $newTimeOnly[1] & "-" & $newTimeOnly[2] & "-" & $newTimeOnly[3] & ".png"
 	If $showCursor = 1 Then
-		_ScreenCapture_CaptureWnd($filename, $hWnd)
+		$bmp = _ScreenCapture_CaptureWnd("", $hWnd)
 		Sleep(50)
 	Else
-		_ScreenCapture_CaptureWnd($filename, $hWnd, 0, 0, -1, -1, False)
+		$bmp = _ScreenCapture_CaptureWnd("", $hWnd, 0, 0, -1, -1, False)
 		Sleep(50)
 	EndIf
-
+	_ScreenCapture_SaveImage ( $filename, $bmp)
 	TrayTip("Screenshot saved", "Screenshot saved to: " & $filename, 2, 16)
 
 	Return 0
@@ -664,10 +678,17 @@ Func _TrayItems()
 	$traySewerWho = TrayCreateItem("Who did this to me? ", $traySewer)
 
 	TrayCreateItem("")
+	$trayPfiffel = TrayCreateMenu("Pfiffel.com Tools")
+	$trayPfiffelWebsite = TrayCreateItem("Visit Pfiffel.com", $trayPfiffel)
+	$trayPfiffelDPS = TrayCreateItem("Open DPS Calculator", $trayPfiffel)
+	$trayPfiffelPet = TrayCreateItem("Open Pet Simulator", $trayPfiffel)
+	$trayPfiffelDye = TrayCreateItem("Open Dye Tool", $trayPfiffel)
+
+	TrayCreateItem("")
 	;Misc
 	$traySiteRealmeye = TrayCreateItem("Visit RealmEye.com")
 	$traySiteReddit = TrayCreateItem("Visit /r/RotMG")
-	$traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
+	;$traySitePfiffel = TrayCreateItem("Visit Pfiffel.com")
 	$traySiteProject = TrayCreateItem("Visit the SimpleR website")
 	TrayCreateItem("")
 	;Exit
