@@ -1,8 +1,18 @@
 # Changelog of SimpleR
 
-## [v1.2.0] - 2017-11-##
+## [v1.2.0] - 2018-01-21
 ### Added
-- disabled possibliity to resize window by dragging the edges
+- disabled possibility to resize window by dragging the edges
+- displays a warning message if memory usege of RotMG gets too high (which results in crashes)
+- disabled Ctrl + W and Ctrl + Q to avoid accidently closing the game
+- direct links for Pfiffel.com tools / some of them open directly in flash projector
+- key redirect feature to bind mouse keys to ingame actions
+
+### Changed
+- simplified the process to set up your account for Kongregate
+
+### Fixed
+- several issues with certain keys not working as hotkeys (breaks previous configs!)
 
 
 ## [v1.1.0] - 2017-11-25
