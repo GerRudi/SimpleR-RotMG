@@ -2,7 +2,7 @@
 #AutoIt3Wrapper_Icon=..\data\Icons\SimpleR.ico
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Simple launcher to play RotMG
-#AutoIt3Wrapper_Res_Fileversion=1.2.0.0
+#AutoIt3Wrapper_Res_Fileversion=1.0.1.0
 #AutoIt3Wrapper_Res_Fileversion_AutoIncrement=n
 #AutoIt3Wrapper_Res_LegalCopyright=GerRudi
 #AutoIt3Wrapper_Res_Language=1033
@@ -47,13 +47,15 @@ Global $AF_compatible
 Global $AF_active = 0
 Global $Dkstp_w = @DesktopWidth
 Global $Dkstp_h = @DesktopHeight
+Global $highMem= False
+
 If IsArray($t) Then
 	$AF_compatible = 1
 Else
 	$AF_compatible = 0
 EndIf
 
-
+Global $tmr
 Global $trayForceFocus
 Global $traySettings
 Global $trayReloadSettings
@@ -174,10 +176,9 @@ Func main()
 	_solutionchange()
 	Local $pid = WinGetProcess($WindowClass)
 	ProcessSetPriority($pid, 4)
-	;~ 	Disable resizing via window edges - https://www.autoitscript.com/forum/topic/97246-disable-window-resize/?do=findComment&comment=699284
-	$style = _WinAPI_GetWindowLong($hWnd, $GWL_STYLE)
-	If BitXOR($style,$WS_SIZEBOX) <> BitOr($style,BitXOR($style,$WS_SIZEBOX)) Then _WinAPI_SetWindowLong($hWnd,$GWL_STYLE,BitXOR($style,$WS_SIZEBOX))
 
+
+	$tmr=TimerInit()
 	If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then
 		TrayTip("Warning", "Force Focus is activated! Use the hotkey to disable or press the Windows Key get out of the window! " & "You can deactivate it permanently in the Settings. ", 5, 2)
 	EndIf
@@ -191,7 +192,7 @@ Func main()
 		If WinActive($hWnd) Then
 			If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then ;bKeepWindowFocused
 				$aCoords = WinGetPos($hWnd)
-				_MouseTrap($aCoords[0] + 2, $aCoords[1], $aCoords[0] + $aCoords[2] - 2, $aCoords[1] + $aCoords[3] - 2)
+				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8)
 				;alternative: $aCoords[1] + 50 would trap the mouse ONLY to the flash content, excluding the title and menubar (has to be disabled in order to close the window)
 			EndIf
 
@@ -256,6 +257,21 @@ Func main()
 		Else
 			_MouseTrap()
 		EndIf
+
+
+		If Not $highMem Then
+			If TimerDiff($tmr) > 60000 Then
+				Global $sts= ProcessGetStats($pid)
+				$memory = $sts[0]/1024/1024
+				If $memory > 1280 Then
+					TrayTip("Please restart the game soon","RotMG is using a lot of memory, please restart your game soon to avoid any crashes!",7,2)
+					$highMem=True
+				EndIf
+					$tmr = TimerInit()
+			EndIf
+		EndIf
+
+
 		Switch TrayGetMsg()
 			Case $trayForceFocus
 				$savedGeneral[$bKeepWindowFocused][$cAIactive] = _ToggleForceFocus($savedGeneral[$bKeepWindowFocused][$cAIactive])
