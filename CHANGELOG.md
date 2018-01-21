@@ -10,6 +10,7 @@
 
 ### Changed
 - simplified the process to set up your account for Kongregate
+- improved screenshot quality
 
 ### Fixed
 - several issues with certain keys not working as hotkeys (breaks previous configs!)
