@@ -226,7 +226,7 @@ EndFunc   ;==>DefaultHotkeys
 
 Func DefaultRedirects()
 	Local $SettingsRedirects[][] = [ _
-			["Redirect1", "1", "X2Mouse","Numpad0"], _
+			["Redirect1", "0", "X2Mouse","Numpad0"], _
 			["Redirect2", "0", "X1Mouse", "F5"], _
 			["RedirectR", "0", "Mousekey", "Key"], _
 			["RedirectR", "0", "Mousekey", "Key"], _
