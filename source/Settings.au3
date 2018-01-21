@@ -1242,7 +1242,7 @@ Func _SetMacros()
 
 	;Macro 1
 	If $savedMacros[$cmacro1][$cAIactive] = 1 Then
-		_Metro_ToggleCheck($tgRedirect1)
+		_Metro_ToggleCheck($tgMacro1)
 		GUICtrlSetState($btnMacro1, 64)
 		GUICtrlSetBkColor($btnMacro1, "0x1E648C")
 		GUICtrlSetState($inputMacro1, 64)
