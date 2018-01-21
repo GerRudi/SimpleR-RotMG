@@ -1783,7 +1783,32 @@ Func _ReadGUI()
 		$newGeneral[$bKongregate][$cAIactive] = 0
 	EndIf
 
-	$newGeneral[$sKongregateParameters][$cAIcontent] = GUICtrlRead($inputsKongregateParameters)
+
+	$kgparams=GUICtrlRead($inputsKongregateParameters)
+	If StringInStr($kgparams,"DO_NOT_SHARE_THIS_LINK") >0 Then
+		Local $finalParameters="?"
+		Local $requiredParameters[]=["kongregate_username", "kongregate_user_id", "kongregate_game_auth_token","kongregate_api_path"]
+		Local $firstParameter = True
+		Local $res=StringSplit($kgparams,"&")
+		For $param in $res
+			For $i =0 To UBound($requiredParameters)-1 Step 1
+				IF StringInStr($param,$requiredParameters[$i])>0 Then
+					IF Not $firstParameter Then
+						$finalParameters=$finalParameters&"&" &$param
+					Else
+						$finalParameters=$finalParameters &$param
+						$firstParameter = False
+					Endif
+
+				EndIf
+			Next
+		Next
+		$newGeneral[$sKongregateParameters][$cAIcontent] = $finalParameters
+	Else
+		$newGeneral[$sKongregateParameters][$cAIcontent] = GUICtrlRead($inputsKongregateParameters)
+	EndIf
+
+
 
 	If _Metro_ToggleIsChecked($tgbAdditionalProgram) Then
 		$newGeneral[$bLaunchAdditionalProgram][$cAIactive] = 1
