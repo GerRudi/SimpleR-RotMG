@@ -38,6 +38,8 @@ Opt("TrayMenuMode", 3) ; The default tray menu items will not be shown and items
 Opt("TrayAutoPause", 0) ; no auto pause for tray
 TraySetIcon(@ScriptFullPath, 0)
 
+HotKeySet("^q","_Dummy")
+HotKeySet("^w","_Dummy")
 
 ; ########################################## VARIABLES ################################################
 Global $defaultCursor = RegRead("HKEY_CURRENT_USER\Control Panel\Cursors", "Arrow")
@@ -710,3 +712,8 @@ Func _GetSWF()
 
 	Return $SWF
 EndFunc   ;==>_GetSWF
+
+
+Func _Dummy()
+
+EndFunc
