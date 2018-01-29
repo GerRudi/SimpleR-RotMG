@@ -723,7 +723,6 @@ Func _GetSWF()
 	Local $SWF[][] = [ _
 			["productionLoader", "productionClient"], _
 			["TestingLoader", "TestingClient"]]
-	Local $temp[] = ["prodID", "testID"]
 	Local $bnrysrc[] = ["prodID", "testID"]
 	Local $v1, $v2
 
@@ -735,20 +734,21 @@ Func _GetSWF()
 	If IsArray($v1) Then
 		$SWF[0][0] = ("https://realmofthemadgodhrd.appspot.com/AGCLoader" & $v1[0] & ".swf")
 		$SWF[0][1] = ("https://realmofthemadgodhrd.appspot.com/AssembleeGameClient" & $v1[0] & ".swf")
+    Else
+		Dim $temp = _INetGetSource("http://www.realmofthemadgod.com/version.txt")
 
+		$SWF[0][0] = ("https://realmofthemadgodhrd.appspot.com/AGCLoader" & $temp & ".swf")
+		$SWF[0][1] = ("https://realmofthemadgodhrd.appspot.com/AssembleeGameClient" & $temp & ".swf")
+    EndIf
+
+    If IsArray($v2) Then
 		$SWF[1][0] = ("http://testing.realmofthemadgod.com/AGCLoader" & $v2[0] & ".swf")
 		$SWF[1][1] = ("http://testing.realmofthemadgod.com/AssembleeGameClient" & $v2[0] & ".swf")
-
 	Else
-		$temp[0] = _INetGetSource("http://www.realmofthemadgod.com/version.txt")
-		$temp[1] = _INetGetSource("http://testing.realmofthemadgod.com/version.txt")
+		Dim $temp = _INetGetSource("http://testing.realmofthemadgod.com/version.txt")
 
-
-		$SWF[0][0] = ("https://realmofthemadgodhrd.appspot.com/AGCLoader" & $temp[0] & ".swf")
-		$SWF[0][1] = ("https://realmofthemadgodhrd.appspot.com/AssembleeGameClient" & $temp[0] & ".swf")
-
-		$SWF[1][0] = ("http://testing.realmofthemadgod.com/AGCLoader" & $temp[1] & ".swf")
-		$SWF[1][1] = ("http://testing.realmofthemadgod.com/AssembleeGameClient" & $temp[1] & ".swf")
+		$SWF[1][0] = ("http://testing.realmofthemadgod.com/AGCLoader" & $temp & ".swf")
+		$SWF[1][1] = ("http://testing.realmofthemadgod.com/AssembleeGameClient" & $temp & ".swf")
 	EndIf
 
 	Return $SWF
