@@ -1,5 +1,10 @@
 # Changelog of SimpleR
 
+## [v1.2.1] - 2018-01-29
+### Fixed
+- Game not launching when testing website is offline
+
+
 ## [v1.2.0] - 2018-01-21
 ### Added
 - disabled possibility to resize window by dragging the edges
