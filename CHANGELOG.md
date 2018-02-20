@@ -1,5 +1,10 @@
 # Changelog of SimpleR
 
+## [v1.2.2] - 2018-02-20
+### Added
+- Support for public testing -> enjoy!
+
+
 ## [v1.2.1] - 2018-01-29
 ### Fixed
 - Game not launching when testing website is offline

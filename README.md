@@ -1,3 +1,5 @@
+# Public testing is working with v1.2.2!
+
 <img src="data/Icons/SimpleR.png" width="100">
 
 # SimpleR-RotMG
