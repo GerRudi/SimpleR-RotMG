@@ -2,7 +2,7 @@
 #AutoIt3Wrapper_Icon=..\data\Icons\SimpleR.ico
 #AutoIt3Wrapper_Compression=0
 #AutoIt3Wrapper_Res_Description=Simple launcher to play RotMG
-#AutoIt3Wrapper_Res_Fileversion=1.2.0.0
+#AutoIt3Wrapper_Res_Fileversion=1.2.2.0
 #AutoIt3Wrapper_Res_LegalCopyright=GerRudi
 #AutoIt3Wrapper_Res_Language=1033
 #AutoIt3Wrapper_Run_Au3Stripper=y
@@ -742,13 +742,13 @@ Func _GetSWF()
     EndIf
 
     If IsArray($v2) Then
-		$SWF[1][0] = ("http://testing.realmofthemadgod.com/AGCLoader" & $v2[0] & ".swf")
-		$SWF[1][1] = ("http://testing.realmofthemadgod.com/AssembleeGameClient" & $v2[0] & ".swf")
+		$SWF[1][0] = ("https://rotmgtesting.appspot.com/AGCLoader" & $v2[0] & ".swf")
+		$SWF[1][1] = ("https://rotmgtesting.appspot.com/AssembleeGameClient" & $v2[0] & ".swf")
 	Else
 		Dim $temp = _INetGetSource("http://testing.realmofthemadgod.com/version.txt")
 
-		$SWF[1][0] = ("http://testing.realmofthemadgod.com/AGCLoader" & $temp & ".swf")
-		$SWF[1][1] = ("http://testing.realmofthemadgod.com/AssembleeGameClient" & $temp & ".swf")
+		$SWF[1][0] = ("https://rotmgtesting.appspot.com/AGCLoader" & $temp & ".swf")
+		$SWF[1][1] = ("https://rotmgtesting.appspot.com/AssembleeGameClient" & $temp & ".swf")
 	EndIf
 
 	Return $SWF
