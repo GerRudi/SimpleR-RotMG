@@ -1,4 +1,4 @@
-# Public testing is working with version v1.3!
+# Public testing is working with version v1.2.2!
 
 
 <img src="data/Icons/SimpleR.png" width="100">

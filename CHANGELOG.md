@@ -1,6 +1,6 @@
 # Changelog of SimpleR
 
-## [v1.3] - 2018-02-20
+## [v1.2.2] - 2018-02-20
 ### Added
 - Support for public testing -> enjoy!
 
