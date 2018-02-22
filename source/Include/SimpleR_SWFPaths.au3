@@ -70,9 +70,11 @@ Func GetKongregateSWF()
 	  SetError(0, 0)
 	  Return "https://realmofthemadgodhrd.appspot.com/AGCLoader" & $lines[1] & ".swf"
    Else
+	  Local $errorCode = @error
+
 	  FileDelete($filepath)
 
-	  Switch @error
+	  Switch $errorCode
 	  Case 1
 		 ; Error opening specified FileChangeDir
 		 SetError(1, 0)
