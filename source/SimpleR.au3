@@ -22,6 +22,7 @@
 #include <APIResConstants.au3>
 #include "./Include/InitialSetup.au3"
 #include "./Include/ResizeStuff.au3"
+#include "./Include/SimpleR_SWFPaths.au3"
 
 #Region MetroGUI
 ;YOU NEED TO EXCLUDE FOLLOWING FUNCTIONS FROM AU3STRIPPER, OTHERWISE IT WON'T WORK:
@@ -134,8 +135,6 @@ Func main()
 		$savedRedirects[$i][$cAIRedirect] = "{" & $savedRedirects[$i][$cAIRedirect] & "}"
 	Next
 
-	$SWF = _GetSWF()
-
 	_TrayItems()
 
 	;Run Additional Program on Startup
@@ -148,29 +147,14 @@ Func main()
 	If $bProjectorExists Then
 		If $savedGeneral[$bTesting][$cAIactive] = 0 Then ; bTesting = 0? (false)
 			If $savedGeneral[$bKongregate][$cAIactive] = 1 Then ; bKongregate = 1? (true)
-				Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & $SWF[$cSWFproduction][$cSWFloader] & $savedGeneral[$sKongregateParameters][$cAIcontent])
+			   Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & GetKongregateSWF() & $savedGeneral[$sKongregateParameters][$cAIcontent])
 			Else
-				If $savedGeneral[$bAGCLoader][$cAIactive] = 0 Then ;bAGCLoader 0 0? (false)
-					;run AGCLIENT
-					Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & $SWF[$cSWFproduction][$cSWFclient])
-				Else
-					;run AGCLOADER
-					Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & $SWF[$cSWFproduction][$cSWFloader])
-				EndIf
-
+			   Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & GetProductionSWF())
 			EndIf
 
 		Else
-			;Run Testing#####
-			If $savedGeneral[$bAGCLoader][$cAIactive] = 0 Then ;bAGCLoader 0 0? (false)
-				;run AGCLIENT
-				Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & $SWF[$cSWFtesting][$cSWFclient])
-			Else
-				;run AGCLOADER
-				Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & $SWF[$cSWFtesting][$cSWFloader])
-			EndIf
+			Run($savedPaths[$sFlashFile][$cAIcontent] & ' ' & GetTestingSWF())
 		EndIf
-
 	Else
 		MsgBox(16, "Error", "Could not find Flash Projector at '" & $savedPaths[$sFlashFile][$cAIcontent] & "'")
 		Exit
@@ -716,44 +700,6 @@ Func _TrayItems()
 
 	TraySetState(1) ; Show the tray menu.
 EndFunc   ;==>_TrayItems
-
-
-Func _GetSWF()
-	;First try grabbing directly from source, then from version.txt as it is sometimes incorrect
-	Local $SWF[][] = [ _
-			["productionLoader", "productionClient"], _
-			["TestingLoader", "TestingClient"]]
-	Local $bnrysrc[] = ["prodID", "testID"]
-	Local $v1, $v2
-
-	$bnrysrc[0] = InetRead('http://www.realmofthemadgod.com/index.html', 1)
-	$bnrysrc[1] = InetRead('http://testing.realmofthemadgod.com/index.html', 1)
-
-	$v1 = StringRegExp(BinaryToString($bnrysrc[0]), '(?:<embed src="AGCLoader)(.{0,})(?:.swf")', 1)
-	$v2 = StringRegExp(BinaryToString($bnrysrc[1]), '(?:<embed src="AGCLoader)(.{0,})(?:.swf")', 1)
-	If IsArray($v1) Then
-		$SWF[0][0] = ("https://realmofthemadgodhrd.appspot.com/AGCLoader" & $v1[0] & ".swf")
-		$SWF[0][1] = ("https://realmofthemadgodhrd.appspot.com/AssembleeGameClient" & $v1[0] & ".swf")
-    Else
-		Dim $temp = _INetGetSource("http://www.realmofthemadgod.com/version.txt")
-
-		$SWF[0][0] = ("https://realmofthemadgodhrd.appspot.com/AGCLoader" & $temp & ".swf")
-		$SWF[0][1] = ("https://realmofthemadgodhrd.appspot.com/AssembleeGameClient" & $temp & ".swf")
-    EndIf
-
-    If IsArray($v2) Then
-		$SWF[1][0] = ("https://rotmgtesting.appspot.com/AGCLoader" & $v2[0] & ".swf")
-		$SWF[1][1] = ("https://rotmgtesting.appspot.com/AssembleeGameClient" & $v2[0] & ".swf")
-	Else
-		Dim $temp = _INetGetSource("http://testing.realmofthemadgod.com/version.txt")
-
-		$SWF[1][0] = ("https://rotmgtesting.appspot.com/AGCLoader" & $temp & ".swf")
-		$SWF[1][1] = ("https://rotmgtesting.appspot.com/AssembleeGameClient" & $temp & ".swf")
-	EndIf
-
-	Return $SWF
-EndFunc   ;==>_GetSWF
-
 
 Func _Dummy()
 
