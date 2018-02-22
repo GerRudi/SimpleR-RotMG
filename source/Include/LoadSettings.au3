@@ -4,7 +4,6 @@
 #include <Array.au3>
 #include ".\SimpleR_Constants.au3"
 
-
 #Region Functions
 Func GetGeneral($uselocal = 1)
 	Local $array
@@ -50,8 +49,6 @@ Func GetMacros($uselocal = 1)
 	EndIf
 	Return $array
 EndFunc   ;==>GetMacros
-
-
 
 Func GetIngame($uselocal = 1)
 	Local $array
@@ -99,7 +96,6 @@ EndFunc   ;==>GetHotkeys
 Func DefaultGeneral()
 	Local $SettingsGeneral[][] = [ _
 			["bTesting", "0"], _
-			["bAGCLoader", "0"], _
 			["bUseMacros", "1"], _
 			["bUseHotkeys", "1"], _
 			["bCustomCursor", "1"], _
@@ -109,6 +105,7 @@ Func DefaultGeneral()
 			["bKeepWindowFocused", "0"], _
 			["bLaunchAdditionalProgram", "0"], _
 			["bEnableAnchor", "1"], _
+			["bReserved1", "reserved"], _
 			["bReserved1", "reserved"], _
 			["bReserved1", "reserved"], _
 			["bReserved1", "reserved"], _
@@ -223,7 +220,6 @@ Func DefaultHotkeys()
 	Return $SettingsHotkeys
 EndFunc   ;==>DefaultHotkeys
 
-
 Func DefaultRedirects()
 	Local $SettingsRedirects[][] = [ _
 			["Redirect1", "0", "X2Mouse","0"], _
@@ -239,9 +235,7 @@ Func DefaultRedirects()
 	Return $SettingsRedirects
 EndFunc   ;==>DefaultHotkeys
 
-
 #EndRegion DefaultSettings
-
 
 Func _PathConvert($path)
 	If Not StringInStr($path, ":\") <> 0 Then
@@ -302,7 +296,6 @@ Func _SaveToCSV($csvSource, $array)
 		SetError(-1)
 		Return -1
 	EndIf
-
 EndFunc   ;==>_SaveToCSV
 
 Func _ClearKeys($array, $type = 0)
@@ -339,7 +332,6 @@ Func _ConvertPath($path, $dir = @ScriptDir)
 	Return $path
 EndFunc   ;==>_ConvertPath
 
-
 Func _ResetSettings()
 	Local $array = GetGeneral(0)
 	$array = GetPaths(0)
@@ -364,8 +356,4 @@ Func _UpdateArray($savedArray, $defaultArray, $savePath)
 	Return $savedArray
 EndFunc   ;==>_UpdateArray
 
-
-
-
 #EndRegion Functions
-

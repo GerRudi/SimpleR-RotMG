@@ -24,7 +24,6 @@ Global const $cAIRedirect = 3
 ;Settings
 ;GENERAL
 Global const $bTesting = 0
-Global const $bAGCLoader = 1
 Global const $bMacros = 2
 Global const $bHotkeys = 3
 Global const $bCustomCursor = 4

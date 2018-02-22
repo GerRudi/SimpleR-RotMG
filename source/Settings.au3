@@ -440,9 +440,6 @@ GUICtrlSetFont($lblsFlashFile, 11.5, "", "", "Segoe UI")
 $tgbTesting = _Metro_CreateToggle("Connect to testing", 40, 400, 600, 30)
 GUICtrlSetResizing($tgbTesting, 768 + 8)
 
-$tgbAGCLoader = _Metro_CreateToggle("Use AGCLoader instead of AssembleeGameClient", 40, 440, 600, 30)
-GUICtrlSetResizing($tgbAGCLoader, 768 + 8)
-
 ; Key redirect
 $lblKeyRedirect = GUICtrlCreateLabel("Key redirects (bind ingame actions to your mouse)", 40, 490, 600, 30, $SS_LEFTNOWORDWRAP)
 GUICtrlSetResizing($lblKeyRedirect, 768 + 8)
@@ -1002,14 +999,6 @@ While 1
 			Else
 				_Metro_ToggleCheck($tgbTesting)
 			EndIf
-
-
-		Case $tgbAGCLoader
-			If _Metro_ToggleIsChecked($tgbAGCLoader) Then
-				_Metro_ToggleUnCheck($tgbAGCLoader)
-			Else
-				_Metro_ToggleCheck($tgbAGCLoader)
-			EndIf
 			#EndRegion Others
 
 		;Redirect 1
@@ -1192,13 +1181,6 @@ Func _SetOthers()
 	Else
 		_Metro_ToggleUnCheck($tgbTesting)
 	EndIf
-
-	If $savedGeneral[$bAGCLoader][$cAIactive] = 1 Then
-		_Metro_ToggleCheck($tgbAGCLoader)
-	Else
-		_Metro_ToggleUnCheck($tgbAGCLoader)
-	EndIf
-
 
 	;Redirect 1
 	If $savedRedirects[$credirect1][$cAIactive] = 1 Then
@@ -1504,7 +1486,6 @@ Func _HideAll()
 	GUICtrlSetState($browsesFlashFile, 32)
 	GUICtrlSetState($lblsFlashFile, 32)
 	GUICtrlSetState($tgbTesting, 32)
-	GUICtrlSetState($tgbAGCLoader, 32)
 
 	GUICtrlSetState($lblKeyRedirect , 32)
 	GUICtrlSetState($tgRedirect1  , 32)
@@ -1614,7 +1595,6 @@ Func _ShowOthers()
 	GUICtrlSetState($browsesFlashFile, 16)
 	GUICtrlSetState($lblsFlashFile, 16)
 	GUICtrlSetState($tgbTesting, 16)
-	GUICtrlSetState($tgbAGCLoader, 16)
 	GUICtrlSetState($lblKeyRedirect , 16)
 	GUICtrlSetState($tgRedirect1  , 16)
 	GUICtrlSetState($btnRedirectHotkey1  , 16)
@@ -1825,14 +1805,6 @@ Func _ReadGUI()
 	Else
 		$newGeneral[$bTesting][$cAIactive] = 0
 	EndIf
-
-
-	If _Metro_ToggleIsChecked($tgbAGCLoader) Then
-		$newGeneral[$bAGCLoader][$cAIactive] = 1
-	Else
-		$newGeneral[$bAGCLoader][$cAIactive] = 0
-	EndIf
-
 
 	If _Metro_ToggleIsChecked($tgRedirect1) Then
 		$newRedirects[$credirect1][$cAIactive] = 1
