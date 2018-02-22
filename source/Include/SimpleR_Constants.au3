@@ -33,7 +33,7 @@ Global const $bCursorOnScreenshot = 7
 Global const $bKeepWindowFocused = 8
 Global const $bLaunchAdditionalProgram = 9
 Global const $bAnchor = 10
-;~ ;Reserved 11-24
+;~ ;Reserved 10-24
 Global const $sWindowName = 25
 Global const $sDefaultAnchor = 26
 Global const $sKongregateParameters = 27
