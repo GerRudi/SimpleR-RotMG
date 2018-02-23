@@ -1,5 +1,3 @@
-# Public testing is working with v1.2.2!
-
 <img src="data/Icons/SimpleR.png" width="100">
 
 # SimpleR-RotMG
@@ -26,7 +24,7 @@ A convenient way to play Realm of the Mad God on Windows
 
 
 # Download
-Current version: 1.2.1 - 2018-01-29 - [Changelog](./CHANGELOG.md)
+Current version: 1.2.2 - 2018-02-22 - [Changelog](./CHANGELOG.md)
 
 See [Releases](../../releases/latest) for download
 
