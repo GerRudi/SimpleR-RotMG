@@ -171,7 +171,9 @@ Func main()
 	_solutionchange()
 	Local $pid = WinGetProcess($WindowClass)
 	ProcessSetPriority($pid, 4)
-
+	;~ 	Disable resizing via window edges - https://www.autoitscript.com/forum/topic/97246-disable-window-resize/?do=findComment&comment=699284
+ 	$style = _WinAPI_GetWindowLong($hWnd, $GWL_STYLE)
+ 	If BitXOR($style,$WS_SIZEBOX) <> BitOr($style,BitXOR($style,$WS_SIZEBOX)) Then _WinAPI_SetWindowLong($hWnd,$GWL_STYLE,BitXOR($style,$WS_SIZEBOX))
 
 	$tmr=TimerInit()
 	If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then
@@ -187,7 +189,7 @@ Func main()
 		If WinActive($hWnd) Then
 			If $savedGeneral[$bKeepWindowFocused][$cAIactive] = 1 Then ;bKeepWindowFocused
 				$aCoords = WinGetPos($hWnd)
-				_MouseTrap($aCoords[0] + 8, $aCoords[1] + 8, $aCoords[0] + $aCoords[2] - 8, $aCoords[1] + $aCoords[3] - 8)
+				_MouseTrap($aCoords[0] + 2, $aCoords[1], $aCoords[0] + $aCoords[2] - 2, $aCoords[1] + $aCoords[3] - 2)
 				;alternative: $aCoords[1] + 50 would trap the mouse ONLY to the flash content, excluding the title and menubar (has to be disabled in order to close the window)
 			Else
 				_MouseTrap()
