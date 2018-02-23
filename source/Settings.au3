@@ -46,7 +46,6 @@ $GUI_FSRestore_BUTTON = $Control_Buttons[5]
 $GUI_MENU_BUTTON = $Control_Buttons[6]
 ;======================================================================================================================================================================
 
-
 #Region VARIABLES
 Global $savedGeneral
 Global $savedPaths
@@ -63,8 +62,6 @@ Global $newHotkeys
 Global $newRedirects
 
 #EndRegion VARIABLES
-
-
 
 #Region GENERAL
 $lblMenu = GUICtrlCreateLabel("▲   Open Menu", 20, 30, 120, 30, $SS_LEFTNOWORDWRAP)
@@ -103,7 +100,6 @@ GUICtrlSetColor($inputGameName, $COLOR_WHITE)
 GUICtrlSetBkColor($inputGameName, $COLOR_BLACK)
 GUICtrlSetFont($inputGameName, 11.5, "", "", "Segoe UI")
 GUICtrlSetCursor($inputGameName, 5)
-
 #EndRegion GENERAL
 
 #Region MACROS
@@ -178,9 +174,7 @@ GUICtrlSetColor($inputMacro4, $COLOR_WHITE)
 GUICtrlSetBkColor($inputMacro4, $COLOR_BLACK)
 GUICtrlSetFont($inputMacro4, 11.5, "", "", "Segoe UI")
 GUICtrlSetCursor($inputMacro4, 5)
-
 #EndRegion MACROS
-
 
 #Region Hotkeys
 ;H1
@@ -322,9 +316,7 @@ $lblHotkey7 = GUICtrlCreateLabel("Toggle 'force focus on game'", 230, 595, 490, 
 GUICtrlSetResizing($lblHotkey7, 768 + 8)
 GUICtrlSetColor($lblHotkey7, $COLOR_WHITE)
 GUICtrlSetFont($lblHotkey7, 11.5, "", "", "Segoe UI")
-
 #EndRegion Hotkeys
-
 
 #Region IngameKeys
 ;CHAT
@@ -378,9 +370,7 @@ $lblIngame4 = GUICtrlCreateLabel("Command Symbol (Default: '/')", 150, 255, 490,
 GUICtrlSetResizing($lblIngame4, 768 + 8)
 GUICtrlSetColor($lblIngame4, $COLOR_WHITE)
 GUICtrlSetFont($lblIngame4, 11.5, "", "", "Segoe UI")
-
 #EndRegion IngameKeys
-
 
 #Region Others
 ;Play with Kongregate Toggle
@@ -416,7 +406,6 @@ GUICtrlSetFont($lblsAdditionalProgramPath, 11.5, "", "", "Segoe UI")
 $browsesAdditionalProgramPath = _Metro_CreateButton("Browse...", 40, 200, 70, 30)
 GUICtrlSetResizing($browsesAdditionalProgramPath, 768 + 8)
 
-
 ;Flash directory
 $lblAdvancedWarning = GUICtrlCreateLabel("Do NOT modify the settings below unless you know what you're doing.", 40, 280, 600, 30, $SS_LEFTNOWORDWRAP)
 GUICtrlSetResizing($lblAdvancedWarning, 768 + 8)
@@ -440,15 +429,11 @@ GUICtrlSetFont($lblsFlashFile, 11.5, "", "", "Segoe UI")
 $tgbTesting = _Metro_CreateToggle("Connect to testing", 40, 400, 600, 30)
 GUICtrlSetResizing($tgbTesting, 768 + 8)
 
-$tgbAGCLoader = _Metro_CreateToggle("Use AGCLoader instead of AssembleeGameClient", 40, 440, 600, 30)
-GUICtrlSetResizing($tgbAGCLoader, 768 + 8)
-
 ; Key redirect
 $lblKeyRedirect = GUICtrlCreateLabel("Key redirects (bind ingame actions to your mouse)", 40, 490, 600, 30, $SS_LEFTNOWORDWRAP)
 GUICtrlSetResizing($lblKeyRedirect, 768 + 8)
 GUICtrlSetColor($lblKeyRedirect, $COLOR_WHITE)
 GUICtrlSetFont($lblKeyRedirect, 11.5, "", "", "Segoe UI")
-
 
 ;redirect1
 $tgRedirect1 = _Metro_CreateToggle("", 40, 530, 60, 30)
@@ -460,7 +445,6 @@ GUICtrlSetColor($btnRedirectHotkey1, $COLOR_WHITE)
 GUICtrlSetFont($btnRedirectHotkey1, 11.5, "", "", "Segoe UI Bold")
 GUICtrlSetBkColor($btnRedirectHotkey1, "0x1E648C")
 GUICtrlSetCursor($btnRedirectHotkey1, 0)
-
 
 $lblRedirect1 = GUICtrlCreateLabel("will press the ingame key: ", 230, 535, 170, 30, $SS_LEFTNOWORDWRAP)
 GUICtrlSetResizing($lblRedirect1, 768 + 8)
@@ -474,7 +458,6 @@ GUICtrlSetFont($btnRedirectGamekey1, 11.5, "", "", "Segoe UI Bold")
 GUICtrlSetBkColor($btnRedirectGamekey1, "0x1E648C")
 GUICtrlSetCursor($btnRedirectGamekey1, 0)
 
-
 ;redirec2
 $tgRedirect2 = _Metro_CreateToggle("", 40, 570, 60, 30)
 GUICtrlSetResizing($tgRedirect2, 768 + 8)
@@ -485,7 +468,6 @@ GUICtrlSetColor($btnRedirectHotkey2, $COLOR_WHITE)
 GUICtrlSetFont($btnRedirectHotkey2, 11.5, "", "", "Segoe UI Bold")
 GUICtrlSetBkColor($btnRedirectHotkey2, "0x1E648C")
 GUICtrlSetCursor($btnRedirectHotkey2, 0)
-
 
 $lblRedirect2 = GUICtrlCreateLabel("will press the ingame key: ", 230, 575, 170, 30, $SS_LEFTNOWORDWRAP)
 GUICtrlSetResizing($lblRedirect2, 768 + 8)
@@ -498,9 +480,6 @@ GUICtrlSetColor($btnRedirectGamekey2, $COLOR_WHITE)
 GUICtrlSetFont($btnRedirectGamekey2, 11.5, "", "", "Segoe UI Bold")
 GUICtrlSetBkColor($btnRedirectGamekey2, "0x1E648C")
 GUICtrlSetCursor($btnRedirectGamekey2, 0)
-
-
-
 #EndRegion Others
 
 $ESCinfo = GUICtrlCreateLabel("Press ESC to cancel.", 40, 650, 690, 40, BitOR($SS_CENTER, $SS_CENTERIMAGE))
@@ -627,11 +606,6 @@ While 1
 			EndIf
 			_GUIDisable($Form1, 0, 30)
 
-
-
-
-
-
 			;MACRO 2
 		Case $tgMacro2
 			If _Metro_ToggleIsChecked($tgMacro2) Then
@@ -755,7 +729,6 @@ While 1
 				GUICtrlSetData($btnHotkey2, $tmp)
 			EndIf
 			_GUIDisable($Form1, 0, 30)
-
 
 			;Hotkey 3
 		Case $tgHotkey3
@@ -911,7 +884,6 @@ While 1
 				GUICtrlSetData($btnHotkey8, $tmp)
 			EndIf
 			_GUIDisable($Form1, 0, 30)
-
 			#EndRegion GENERALactions
 
 			#Region Ingame
@@ -986,7 +958,6 @@ While 1
 			EndIf
 			_GUIDisable($Form1, 0, 30)
 
-
 		Case $browsesFlashFile
 			_GUIDisable($Form1, 0, 30)
 			$r = FileOpenDialog("Choose Flash Projector file", @ScriptDir & "\data\", "Executables (*.exe) | All FIles (*.*)", 0, "", $Form1)
@@ -995,20 +966,11 @@ While 1
 			EndIf
 			_GUIDisable($Form1, 0, 30)
 
-
 		Case $tgbTesting
 			If _Metro_ToggleIsChecked($tgbTesting) Then
 				_Metro_ToggleUnCheck($tgbTesting)
 			Else
 				_Metro_ToggleCheck($tgbTesting)
-			EndIf
-
-
-		Case $tgbAGCLoader
-			If _Metro_ToggleIsChecked($tgbAGCLoader) Then
-				_Metro_ToggleUnCheck($tgbAGCLoader)
-			Else
-				_Metro_ToggleCheck($tgbAGCLoader)
 			EndIf
 			#EndRegion Others
 
@@ -1096,7 +1058,6 @@ While 1
 	EndSwitch
 WEnd
 
-
 Func _InitializeSettings()
 	$savedGeneral = GetGeneral()
 	$savedPaths = GetPaths()
@@ -1121,7 +1082,6 @@ Func _InitializeSettings()
 	_HideAll()
 	_ShowGeneral()
 EndFunc   ;==>_InitializeSettings
-
 
 Func _SetGeneral()
 
@@ -1160,11 +1120,9 @@ Func _SetGeneral()
 
 	;Game Window name
 	GUICtrlSetData($inputGameName, $savedGeneral[$sWindowName][$cAIcontent])
-
 EndFunc   ;==>_SetGeneral
 
 Func _SetOthers()
-
 	;Use Kongregate
 	If $savedGeneral[$bKongregate][$cAIactive] = 1 Then
 		_Metro_ToggleCheck($tgbKongregate)
@@ -1192,13 +1150,6 @@ Func _SetOthers()
 	Else
 		_Metro_ToggleUnCheck($tgbTesting)
 	EndIf
-
-	If $savedGeneral[$bAGCLoader][$cAIactive] = 1 Then
-		_Metro_ToggleCheck($tgbAGCLoader)
-	Else
-		_Metro_ToggleUnCheck($tgbAGCLoader)
-	EndIf
-
 
 	;Redirect 1
 	If $savedRedirects[$credirect1][$cAIactive] = 1 Then
@@ -1235,11 +1186,7 @@ Func _SetOthers()
 	GUICtrlSetData($btnRedirectHotkey2, $savedRedirects[$credirect2][$cAIKey])
 EndFunc   ;==>_SetOthers
 
-
-
-
 Func _SetMacros()
-
 	;Macro 1
 	If $savedMacros[$cmacro1][$cAIactive] = 1 Then
 		_Metro_ToggleCheck($tgMacro1)
@@ -1299,16 +1246,13 @@ Func _SetMacros()
 	EndIf
 	GUICtrlSetData($btnMacro4, $savedMacros[$cmacro4][$cAIKey])
 	GUICtrlSetData($inputMacro4, $savedMacros[$cmacro4][$cAImacrotext])
-
 EndFunc   ;==>_SetMacros
 
 Func _SetIngame()
-
 	GUICtrlSetData($btnIngame1, $savedIngame[$igChat][$cAIKey])
 	GUICtrlSetData($btnIngame2, $savedIngame[$igAbility][$cAIKey])
 	GUICtrlSetData($btnIngame3, $savedIngame[$igTell][$cAIKey])
 	GUICtrlSetData($inputCommandSymbol, $savedIngame[$igCommand][$cAIKey])
-
 EndFunc   ;==>_SetIngame
 
 Func _SetHotkeys()
@@ -1377,7 +1321,6 @@ Func _SetHotkeys()
 	GUICtrlSetData($btnHotkey5, $savedHotkeys[$hkTPAnchor][$cAIKey])
 	GUICtrlSetData($inputDefaultAnchor, $savedGeneral[$sDefaultAnchor][$cAIcontent])
 
-
 	;Hotkeys 6
 	If $savedHotkeys[$hkIgnorePM][$cAIactive] = 1 Then
 		_Metro_ToggleCheck($tgHotkey6)
@@ -1413,10 +1356,7 @@ Func _SetHotkeys()
 		GUICtrlSetBkColor($btnHotkey8, "0x123c54")
 	EndIf
 	GUICtrlSetData($btnHotkey8, $savedHotkeys[$hkActualFullscreen][$cAIKey])
-
 EndFunc   ;==>_SetHotkeys
-
-
 
 Func _HideAll()
 	GUICtrlSetState($tgUseMacros, 32)
@@ -1487,11 +1427,6 @@ Func _HideAll()
 	GUICtrlSetState($lblIngame3, 32)
 	GUICtrlSetState($lblIngame4, 32)
 
-
-
-
-
-
 	GUICtrlSetState($tgbKongregate, 32)
 	GUICtrlSetState($lblsKongregateParameters, 32)
 	GUICtrlSetState($inputsKongregateParameters, 32)
@@ -1504,7 +1439,6 @@ Func _HideAll()
 	GUICtrlSetState($browsesFlashFile, 32)
 	GUICtrlSetState($lblsFlashFile, 32)
 	GUICtrlSetState($tgbTesting, 32)
-	GUICtrlSetState($tgbAGCLoader, 32)
 
 	GUICtrlSetState($lblKeyRedirect , 32)
 	GUICtrlSetState($tgRedirect1  , 32)
@@ -1516,8 +1450,6 @@ Func _HideAll()
 	GUICtrlSetState($btnRedirectHotkey2  , 32)
 	GUICtrlSetState($lblRedirect2  , 32)
 	GUICtrlSetState($btnRedirectGamekey2  , 32)
-
-
 
 	GUICtrlSetState($ESCinfo, 32)
 EndFunc   ;==>_HideAll
@@ -1549,7 +1481,6 @@ Func _ShowMacros()
 	GUICtrlSetState($tgMacro4, 16)
 	GUICtrlSetState($btnMacro4, 16)
 	GUICtrlSetState($inputMacro4, 16)
-
 EndFunc   ;==>_ShowMacros
 
 Func _ShowHotkeys()
@@ -1589,7 +1520,6 @@ Func _ShowHotkeys()
 EndFunc   ;==>_ShowHotkeys
 
 Func _ShowIngame()
-
 	GUICtrlSetState($btnIngame1, 16)
 	GUICtrlSetState($btnIngame2, 16)
 	GUICtrlSetState($btnIngame3, 16)
@@ -1599,7 +1529,6 @@ Func _ShowIngame()
 	GUICtrlSetState($lblIngame3, 16)
 	GUICtrlSetState($lblIngame4, 16)
 EndFunc   ;==>_ShowIngame
-
 
 Func _ShowOthers()
 	GUICtrlSetState($tgbKongregate, 16)
@@ -1614,7 +1543,6 @@ Func _ShowOthers()
 	GUICtrlSetState($browsesFlashFile, 16)
 	GUICtrlSetState($lblsFlashFile, 16)
 	GUICtrlSetState($tgbTesting, 16)
-	GUICtrlSetState($tgbAGCLoader, 16)
 	GUICtrlSetState($lblKeyRedirect , 16)
 	GUICtrlSetState($tgRedirect1  , 16)
 	GUICtrlSetState($btnRedirectHotkey1  , 16)
@@ -1625,9 +1553,6 @@ Func _ShowOthers()
 	GUICtrlSetState($lblRedirect2  , 16)
 	GUICtrlSetState($btnRedirectGamekey2  , 16)
 EndFunc   ;==>_ShowOthers
-
-
-
 
 Func _ReadGUI()
 	#Region General
@@ -1763,7 +1688,6 @@ Func _ReadGUI()
 		$newHotkeys[$hkActualFullscreen][$cAIactive] = 0
 	EndIf
 	$newHotkeys[$hkActualFullscreen][$cAIKey] = GUICtrlRead($btnHotkey8)
-
 	#EndRegion Hotkeys
 
 	#Region Ingame
@@ -1771,10 +1695,7 @@ Func _ReadGUI()
 	$newIngame[$igAbility][$cAIKey] = GUICtrlRead($btnIngame2)
 	$newIngame[$igTell][$cAIKey] = GUICtrlRead($btnIngame3)
 	$newIngame[$igCommand][$cAIKey] = GUICtrlRead($inputCommandSymbol)
-
 	#EndRegion Ingame
-
-
 
 	#Region Others
 	If _Metro_ToggleIsChecked($tgbKongregate) Then
@@ -1782,7 +1703,6 @@ Func _ReadGUI()
 	Else
 		$newGeneral[$bKongregate][$cAIactive] = 0
 	EndIf
-
 
 	$kgparams=GUICtrlRead($inputsKongregateParameters)
 	If StringInStr($kgparams,"DO_NOT_SHARE_THIS_LINK") >0 Then
@@ -1808,14 +1728,11 @@ Func _ReadGUI()
 		$newGeneral[$sKongregateParameters][$cAIcontent] = GUICtrlRead($inputsKongregateParameters)
 	EndIf
 
-
-
 	If _Metro_ToggleIsChecked($tgbAdditionalProgram) Then
 		$newGeneral[$bLaunchAdditionalProgram][$cAIactive] = 1
 	Else
 		$newGeneral[$bLaunchAdditionalProgram][$cAIactive] = 0
 	EndIf
-
 
 	$newGeneral[$sAdditionalProgramPath][$cAIcontent] = GUICtrlRead($lblsAdditionalProgramPath)
 	$newPaths[$sFlashFile][$cAIcontent] = GUICtrlRead($lblsFlashFile)
@@ -1825,14 +1742,6 @@ Func _ReadGUI()
 	Else
 		$newGeneral[$bTesting][$cAIactive] = 0
 	EndIf
-
-
-	If _Metro_ToggleIsChecked($tgbAGCLoader) Then
-		$newGeneral[$bAGCLoader][$cAIactive] = 1
-	Else
-		$newGeneral[$bAGCLoader][$cAIactive] = 0
-	EndIf
-
 
 	If _Metro_ToggleIsChecked($tgRedirect1) Then
 		$newRedirects[$credirect1][$cAIactive] = 1
@@ -1849,7 +1758,6 @@ Func _ReadGUI()
 	EndIf
 	$newRedirects[$credirect2][$cAIKey] = GUICtrlRead($btnRedirectHotkey2)
 	$newRedirects[$credirect2][$cAIRedirect] = GUICtrlRead($btnRedirectGamekey2)
-
 	#EndRegion Others
 
 	Local $differ = 0
@@ -1910,7 +1818,6 @@ Func _CheckDuplicateKeys($macros, $hotkeys)
 	Return $AllDuplicates
 EndFunc   ;==>_CheckDuplicateKeys
 
-
 Func _PrepareExit()
 	Local $changesMade = _ReadGUI()
 	If $changesMade > 0 Then
@@ -1930,8 +1837,6 @@ Func _PrepareExit()
 		Exit
 	EndIf
 EndFunc   ;==>_PrepareExit
-
-
 
 Func _SaveExit($skipCheck = 0)
 
@@ -1960,9 +1865,7 @@ Func _SaveExit($skipCheck = 0)
 	_SaveToCSV($pathRedirects, $newRedirects)
 	_Metro_GUIDelete($Form1) ;Delete GUI/release resources, make sure you use this when working with multiple GUIs!
 	Exit
-
 EndFunc   ;==>_SaveExit
-
 
 ; Autor:        Faweyr
 ; Function:        GetKeyInput($sTime,$sBack)
@@ -1991,7 +1894,6 @@ Func GetKeyInput($sTime = 5000, $sBack = 0)
 			[70, "{F1}", "F1"], [71, "{F2}", "F2"], [72, "{F3}", "F3"], [73, "{F4}", "F4"], [74, "{F5}", "F5"], [75, "{F6}", "F6"], [76, "{F8}", "F7"], _
 			[77, "{F8}", "F8"], [78, "{F9}", "F9"], [79, "{F10}", "F10"], [7 & "A", "{F11}", "F11"], [7 & "B", "{F12}", "F12"], [90, "{NUMLOCK}", "NUMLOCK"], [91, "{SCROLLLOCK}", "SCROLLLOCK"], _
 			["A" & 2, "{LCTRL}", "LCTRL"], ["A" & 3, "{RCTRL}", "RCTRL"], ["A" & 4, "{LALT}", "LALT"], ["A" & 5, "{RALT}", "RALT"], [5 & "B", "{LWIN}", "LWIN"]]
-
 
 	GUICtrlSetState($ESCinfo, 16)
 	Do
