@@ -1,5 +1,12 @@
 # Changelog of SimpleR
 
+## [v1.2] - 2018-02-####
+### Added
+- tbd
+### Changed
+- disabling of window resize not working
+- improved backend of grabbing the .swf versions
+
 ## [v1.2.2] - 2018-02-20
 ### Added
 - Support for public testing -> enjoy!
