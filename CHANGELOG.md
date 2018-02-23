@@ -1,6 +1,6 @@
 # Changelog of SimpleR
 
-## [v1.2] - 2018-02-####
+## [v1.3.0] - 2018-02-####
 ### Added
 - tbd
 ### Changed
