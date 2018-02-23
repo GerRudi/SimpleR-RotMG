@@ -96,6 +96,7 @@ EndFunc   ;==>GetHotkeys
 Func DefaultGeneral()
 	Local $SettingsGeneral[][] = [ _
 			["bTesting", "0"], _
+			["bReserved1", "reserved"], _
 			["bUseMacros", "1"], _
 			["bUseHotkeys", "1"], _
 			["bCustomCursor", "1"], _
@@ -105,7 +106,6 @@ Func DefaultGeneral()
 			["bKeepWindowFocused", "0"], _
 			["bLaunchAdditionalProgram", "0"], _
 			["bEnableAnchor", "1"], _
-			["bReserved1", "reserved"], _
 			["bReserved1", "reserved"], _
 			["bReserved1", "reserved"], _
 			["bReserved1", "reserved"], _
