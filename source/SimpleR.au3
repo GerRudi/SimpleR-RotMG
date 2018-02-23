@@ -13,7 +13,6 @@
 
 #include <Misc.au3> ;_IsPressed
 #include "./Include/LoadSettings.au3" ;for hotkeys / macros
-#include <Inet.au3>
 #include <File.au3>
 #include <ScreenCapture.au3> ;for screenshot
 #include <Date.au3> ; for file-name for screenshot

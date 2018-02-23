@@ -1,6 +1,5 @@
 #include-once
 #include <File.au3>
-#include <Inet.au3>
 #include <InetConstants.au3>
 
 ;===============================================================================
