@@ -67,12 +67,14 @@ GUICtrlSetResizing($s2_pleaseChoose, 768 + 8)
 GUICtrlSetColor($s2_pleaseChoose, $COLOR_WHITE)
 GUICtrlSetFont($s2_pleaseChoose, 14, "", "", "Segoe UI")
 
-Global $fpversions = "Flashplayer_26_sa.exe|Flashplayer_25_sa.exe|Flashplayer_24_sa.exe|Flashplayer_23_sa.exe|Flashplayer_22_sa.exe|Flashplayer_21_sa.exe|Flashplayer_20_sa.exe" & _
-		"|Flashplayer_19_sa.exe|Flashplayer_18_sa.exe|Flashplayer_17_sa.exe|Flashplayer_16_sa.exe|Flashplayer_15_sa.exe|Flashplayer_14_sa.exe (common choice)|Flashplayer_13_sa.exe|Flashplayer_12_sa.exe|Flashplayer_11_sa.exe|Flashplayer_10_sa.exe"
+;Global $fpversions = "Flashplayer_26_sa.exe|Flashplayer_25_sa.exe|Flashplayer_24_sa.exe|Flashplayer_23_sa.exe|Flashplayer_22_sa.exe|Flashplayer_21_sa.exe|Flashplayer_20_sa.exe" & _
+;		"|Flashplayer_19_sa.exe|Flashplayer_18_sa.exe|Flashplayer_17_sa.exe|Flashplayer_16_sa.exe|Flashplayer_15_sa.exe|Flashplayer_14_sa.exe (common choice)|Flashplayer_13_sa.exe|Flashplayer_12_sa.exe|Flashplayer_11_sa.exe|Flashplayer_10_sa.exe"
+Global $fpversions = "Flashplayer_30_sa.exe (recommended)" ; BAND AID FIX
 
-Local $s2_version = GUICtrlCreateCombo("Flashplayer_27_sa.exe (recommended)", 350, 260, 250, 20, $CBS_DROPDOWNLIST)
+
+Local $s2_version = GUICtrlCreateCombo("Flashplayer_30_sa.exe (recommended)", 350, 260, 250, 20, $CBS_DROPDOWNLIST)
 GUICtrlSetFont($s2_version, 10, "", "", "Segoe UI")
-GUICtrlSetData($s2_version, $fpversions, "Flashplayer_27_sa.exe (recommended)")
+GUICtrlSetData($s2_version, $fpversions, "Flashplayer_30_sa.exe (recommended)")
 
 $s2_alreadyHave = GUICtrlCreateLabel("Click here if you have already downloaded a copy of flash projector.", 220, 300, 400, 20, $SS_LEFTNOWORDWRAP)
 GUICtrlSetResizing($s2_alreadyHave, 768 + 8)
@@ -214,10 +216,10 @@ Func _ShowDL()
 	GUICtrlSetState($s3_tip, 16)
 EndFunc   ;==>_ShowDL
 
-Func _StartDL($fp_version = 27)
+Func _StartDL($fp_version = 30)
 
 	$FileURL = "https://fpdownload.macromedia.com/pub/flashplayer/updaters/" & $fp_version & "/flashplayer_" & $fp_version & "_sa.exe"
-
+	ConsoleWrite($FileURL &@CRLF)
 	If Not FileExists(@ScriptDir & "\data)") Then
 		DirCreate(@ScriptDir & "\data")
 	EndIf

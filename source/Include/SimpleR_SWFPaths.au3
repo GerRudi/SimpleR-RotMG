@@ -14,7 +14,7 @@
 Func GetProductionSWF()
    ; Introduced in patch X.22.0 https://www.reddit.com/r/RotMG/comments/7ui6v3/patch_x220_gday_oryx/
    ; Pragraph Update #1
-   Return "https://realmofthemadgodhrd.appspot.com/client"
+   Return "https://www.realmofthemadgod.com/client"
 EndFunc   ;==> GetProductionSWF
 
 ;===============================================================================
@@ -31,7 +31,7 @@ EndFunc   ;==> GetProductionSWF
 Func GetTestingSWF()
    ; Introduced after the announcemnt of patch X.22.0 https://www.reddit.com/r/RotMG/comments/7yy1qj/public_testing_is_coming/
    ; This url can be used to grab the current testing swf. This is the url in case of the language error, which will be assumed.
-   Return "https://rotmgtesting.appspot.com/client"
+   Return "https://www.testing.realmofthemadgod.com/client" ; cannont test - testing website currently not responding
 EndFunc   ;==> GetTestingSWF
 
 ;===============================================================================
@@ -67,7 +67,7 @@ Func GetKongregateSWF()
 
    If _FileReadToArray($filepath, $lines) == 1 And $lines[0] >= 1 Then
 	  SetError(0, 0)
-	  Return "https://realmofthemadgodhrd.appspot.com/AGCLoader" & $lines[1] & ".swf"
+	  Return "https://www.realmofthemadgod.com/AGCLoader" & $lines[1] & ".swf"
    Else
 	  Local $errorCode = @error
 
