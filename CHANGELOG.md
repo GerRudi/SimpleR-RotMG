@@ -1,5 +1,13 @@
 # Changelog of SimpleR
 
+## [v1.2.3] - 2018-07-12
+
+### Changed
+- Fix: disabling of window resize not working
+- Fix: Unable to load language error
+- Fix: Error when downloading flash projector
+- improved backend of grabbing the .swf versions
+
 ## [v1.2.2] - 2018-02-20
 ### Added
 - Support for public testing -> enjoy!
