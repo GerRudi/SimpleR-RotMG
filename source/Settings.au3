@@ -2,7 +2,7 @@
 #Region ;**** Directives created by AutoIt3Wrapper_GUI ****
 #AutoIt3Wrapper_Icon=..\data\Icons\Settings.ico
 #AutoIt3Wrapper_Res_Description=Settings GUI for SimpleR
-#AutoIt3Wrapper_Res_Fileversion=1.0.1.1
+#AutoIt3Wrapper_Res_Fileversion=1.0.1.2
 #AutoIt3Wrapper_Res_LegalCopyright=GerRudi
 #AutoIt3Wrapper_Res_Language=1033
 #AutoIt3Wrapper_Run_Au3Stripper=y

@@ -7,6 +7,7 @@
 #include <FontConstants.au3>
 #include <String.au3>
 #include <Inet.au3>
+#include <GuiComboBox.au3>
 
 AutoItSetOption("GUICloseOnESC", 0)
 
@@ -67,14 +68,10 @@ GUICtrlSetResizing($s2_pleaseChoose, 768 + 8)
 GUICtrlSetColor($s2_pleaseChoose, $COLOR_WHITE)
 GUICtrlSetFont($s2_pleaseChoose, 14, "", "", "Segoe UI")
 
-;Global $fpversions = "Flashplayer_26_sa.exe|Flashplayer_25_sa.exe|Flashplayer_24_sa.exe|Flashplayer_23_sa.exe|Flashplayer_22_sa.exe|Flashplayer_21_sa.exe|Flashplayer_20_sa.exe" & _
-;		"|Flashplayer_19_sa.exe|Flashplayer_18_sa.exe|Flashplayer_17_sa.exe|Flashplayer_16_sa.exe|Flashplayer_15_sa.exe|Flashplayer_14_sa.exe (common choice)|Flashplayer_13_sa.exe|Flashplayer_12_sa.exe|Flashplayer_11_sa.exe|Flashplayer_10_sa.exe"
-Global $fpversions = "Flashplayer_30_sa.exe (recommended)" ; BAND AID FIX
+Global $fpdl
 
-
-Local $s2_version = GUICtrlCreateCombo("Flashplayer_30_sa.exe (recommended)", 350, 260, 250, 20, $CBS_DROPDOWNLIST)
+Local $s2_version = GUICtrlCreateCombo("loading...", 350, 260, 250, 20, $CBS_DROPDOWNLIST)
 GUICtrlSetFont($s2_version, 10, "", "", "Segoe UI")
-GUICtrlSetData($s2_version, $fpversions, "Flashplayer_30_sa.exe (recommended)")
 
 $s2_alreadyHave = GUICtrlCreateLabel("Click here if you have already downloaded a copy of flash projector.", 220, 300, 400, 20, $SS_LEFTNOWORDWRAP)
 GUICtrlSetResizing($s2_alreadyHave, 768 + 8)
@@ -153,11 +150,10 @@ Func _Welcome()
 				_GUIDisable($Form1, 0, 30)
 			Case $s2_startDL
 				$v = GUICtrlRead($s2_version)
-				$v = StringTrimLeft($v, 12)
-				$v = StringTrimRight($v, StringLen($v) - 2)
-				_InitialHide()
-				_ShowDL()
-				_StartDL($v)
+					_InitialHide()
+					_ShowDL()
+					_StartDL($v)
+
 			Case $s4_settings
 				Run($pathSettings)
 				_Metro_GUIDelete($Form1) ;Delete GUI/release resources, make sure you use this when working with multiple GUIs!
@@ -207,6 +203,11 @@ Func _ShowFlashPage()
 	GUICtrlSetState($s2_version, 16)
 	GUICtrlSetState($s2_alreadyHave, 16)
 	GUICtrlSetState($s2_startDL, 16)
+	_Getlatest() ;Gets latest available projector version
+	GUICtrlSetData($s2_version, $fpdl[2], $fpdl[2])
+	_GUICtrlComboBox_DeleteString($s2_version, 0)
+
+
 EndFunc   ;==>_ShowFlashPage
 
 Func _ShowDL()
@@ -216,10 +217,27 @@ Func _ShowDL()
 	GUICtrlSetState($s3_tip, 16)
 EndFunc   ;==>_ShowDL
 
-Func _StartDL($fp_version = 30)
+Func _Getlatest()
+	$tempFile = _TempFile()
+	InetGet("https://www.adobe.com/support/flashplayer/debug_downloads.html", $tempFile, 1)
+	$text = FileRead($tempFile)
+	$fpdl = StringRegExp($text, "https:\/\/fpdownload.+(\d+)\/(flashplayer_\1_sa\.exe)", $STR_REGEXPARRAYFULLMATCH )
+	If @error Then
+		MsgBox(16, "Error", "An error occured. Please download the flash projector manually.")
+	EndIf
 
-	$FileURL = "https://fpdownload.macromedia.com/pub/flashplayer/updaters/" & $fp_version & "/flashplayer_" & $fp_version & "_sa.exe"
-	ConsoleWrite($FileURL &@CRLF)
+EndFunc
+
+Func _StartDL($fp_version = 30)
+	If $fp_version = $fpdl[2] Then ;Currently only supported option - add option for older Versions later
+		$FileURL = $fpdl[0]
+	Else
+		MsgBox(16, "Error", "An error occured. Please download the flash projector manually.")
+		_InitialHide()
+		_ShowFlashPage()
+		Return
+	EndIf
+
 	If Not FileExists(@ScriptDir & "\data)") Then
 		DirCreate(@ScriptDir & "\data")
 	EndIf
