@@ -1,9 +1,15 @@
 <img src="data/Icons/SimpleR.png" width="100">
 
+---
+# The project is discontinued since [DECA Games](http://decagames.com/) is developing a Unity client for RotMG.
+---
+
+> Thank you for using our client it was a lot of fun for us to provide it.
+
+From the SimpleR maintainers (Rudi and Vince).
+
 # SimpleR-RotMG
 A convenient way to play Realm of the Mad God on Windows
-
-
 
 # Features
 - Automatically play with the latest version using Adobe Flash Projector
@@ -21,7 +27,6 @@ A convenient way to play Realm of the Mad God on Windows
 - Annoyed by a bot? Ignore the person that most recently sent you a private message
 - Quick access to MrEyeball commands, Master Rat answers, ...
 - Open source
-
 
 # Download
 Current version: 1.2.4 - 2018-07-18 - [Changelog](./CHANGELOG.md)
