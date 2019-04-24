@@ -1,9 +1,10 @@
 <img src="data/Icons/SimpleR.png" width="100">
 
 ---
-# The project is discontinued since [DECA Games](http://decagames.com/) is developing a Unity client for RotMG.
+# No new features will be implemented since [DECA Games](http://decagames.com/) is developing a Unity client for RotMG.
 ---
 
+> Bugs can still be submitted via GitHub issues and will be reviewd by the maintainers.
 > Thank you for using our client it was a lot of fun for us to provide it.
 
 From the SimpleR maintainers (Rudi and Vince).
