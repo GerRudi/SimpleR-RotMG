@@ -1,5 +1,10 @@
 # Changelog of SimpleR
 
+## [v1.2.5] - 2019-11-03
+
+### Changed
+- Fixed initial download of flash projector file (something broke)
+
 ## [v1.2.4] - 2018-07-18
 
 ### Changed
