@@ -30,7 +30,7 @@ A convenient way to play Realm of the Mad God on Windows
 - Open source
 
 # Download
-Current version: 1.2.4 - 2018-07-18 - [Changelog](./CHANGELOG.md)
+Current version: 1.2.5 - 2019-11-03 - [Changelog](./CHANGELOG.md)
 
 See [Releases](../../releases/latest) for download
 
