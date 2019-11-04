@@ -218,6 +218,7 @@ Func _ShowDL()
 EndFunc   ;==>_ShowDL
 
 Func _Getlatest()
+	HttpSetUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0")
 	$tempFile = _TempFile()
 	InetGet("https://www.adobe.com/support/flashplayer/debug_downloads.html", $tempFile, 1)
 	$text = FileRead($tempFile)
